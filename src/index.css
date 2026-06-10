@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * { box-sizing: border-box; }
+  body { @apply bg-bg text-n-900 font-sans antialiased; background: #060d1f; }
+  ::-webkit-scrollbar { width: 5px; height: 5px; }
+  ::-webkit-scrollbar-track { background: #060d1f; }
+  ::-webkit-scrollbar-thumb { background: #1a2d4a; border-radius: 99px; }
+}
+
+@layer components {
+  .card { @apply bg-bg-card border border-bg-border rounded-2xl; }
+  .card-p { @apply card p-6; }
+  .btn { @apply inline-flex items-center gap-2 font-semibold rounded-xl px-5 py-2.5 transition-all duration-200 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed text-sm; }
+  .btn-primary { @apply btn bg-primary hover:bg-primary-dark text-white shadow-glow-sm; }
+  .btn-secondary { @apply btn bg-bg-hover border border-bg-border text-n-700 hover:text-n-900 hover:border-primary/40; }
+  .btn-ghost { @apply btn text-n-600 hover:text-n-900 hover:bg-bg-hover px-3 py-2; }
+  .btn-danger { @apply btn bg-rose/10 text-rose hover:bg-rose/20 border border-rose/20; }
+  .input { @apply w-full bg-bg-hover border border-bg-border rounded-xl px-4 py-2.5 text-n-800 placeholder-n-500 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary/60 transition-all; }
+  .badge { @apply inline-flex items-center gap-1 px-2.5 py-0.5 rounded-lg text-xs font-semibold; }
+  .badge-blue { @apply badge bg-primary/10 text-primary-light border border-primary/20; }
+  .badge-cyan { @apply badge bg-cyan/10 text-cyan-light border border-cyan/20; }
+  .badge-green { @apply badge bg-green/10 text-green-light border border-green/20; }
+  .badge-amber { @apply badge bg-amber/10 text-amber-light border border-amber/20; }
+  .badge-rose { @apply badge bg-rose/10 text-rose-light border border-rose/20; }
+  .badge-purple { @apply badge bg-purple/10 text-purple-light border border-purple/20; }
+  .label { @apply text-xs font-semibold text-n-500 uppercase tracking-wider; }
+  .section-title { @apply text-lg font-bold text-n-900; }
+  .skeleton { @apply bg-bg-hover animate-pulse rounded-xl; }
+  .stat-card { @apply card-p flex flex-col gap-3 hover:border-primary/30 transition-colors; }
+  .progress-bar { @apply h-1.5 bg-bg-muted rounded-full overflow-hidden; }
+  .progress-fill { @apply h-full rounded-full transition-all duration-700; }
+  .nav-link { @apply flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 text-n-600 hover:text-n-900 hover:bg-bg-hover; }
+  .nav-link-active { @apply nav-link bg-primary/10 text-primary-light border border-primary/20; }
+  .tag { @apply px-2 py-0.5 rounded-md text-xs bg-bg-hover border border-bg-border text-n-600; }
+  .divider { @apply border-t border-bg-border; }
+  .tooltip-box { @apply bg-bg-card border border-bg-border rounded-xl p-3 shadow-card text-xs; }
+}

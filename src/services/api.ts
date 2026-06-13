@@ -784,6 +784,471 @@
 
 
 
+// import { supabase } from '../lib/supabase'
+
+// // ═══════════════════════════════════════════════════════════════════════════
+// // TYPES
+// // ═══════════════════════════════════════════════════════════════════════════
+// export interface CFData {
+//   handle: string; rating: number; maxRating: number
+//   rank: string; maxRank: string; totalSolved: number
+//   streakDays: number; contribution: number; friendCount: number
+//   country: string; organization: string; avatar: string
+//   ratingHistory: Array<{
+//     date: string; fullDate: string; rating: number; oldRating: number
+//     contest: string; rank: number; delta: number
+//   }>
+//   tagDistribution: Record<string, number>
+//   difficultyDist: Record<string, number>
+//   weeklyStats: {
+//     solvedThisWeek: number; activeDays: number
+//     submissionsThisWeek: number; avgPerDay: number
+//   }
+//   contests: Array<{
+//     name: string; date: string; rank: number
+//     delta: number; newRating: number; oldRating: number
+//   }>
+// }
+
+// export interface LCData {
+//   handle: string; username: string; avatar: string
+//   ranking: number; contestRating: number; maxRating: number
+//   totalSolved: number; easySolved: number; mediumSolved: number; hardSolved: number
+//   totalEasy: number; totalMedium: number; totalHard: number
+//   acceptanceRate: number; streak: number; totalContests: number; globalRanking: number
+//   tagDistribution: Record<string, number>
+//   languageStats: Record<string, number>
+//   ratingHistory: Array<{
+//     date: string; fullDate: string; rating: number
+//     contestName: string; rank: number; delta: number
+//   }>
+//   weeklyStats: {
+//     solvedThisWeek: number; activeDays: number; avgPerDay: number
+//   }
+//   contests: Array<{ name: string; date: string; rank: number; delta: number; rating: number }>
+// }
+
+// // ═══════════════════════════════════════════════════════════════════════════
+// // CODEFORCES — direct browser fetch, CF API has open CORS
+// // ═══════════════════════════════════════════════════════════════════════════
+// export async function fetchCFData(handle: string): Promise<CFData> {
+//   const base = 'https://codeforces.com/api'
+//   const [uRes, rRes, sRes] = await Promise.all([
+//     fetch(`${base}/user.info?handles=${encodeURIComponent(handle)}`),
+//     fetch(`${base}/user.rating?handle=${encodeURIComponent(handle)}`),
+//     fetch(`${base}/user.status?handle=${encodeURIComponent(handle)}&from=1&count=10000`),
+//   ])
+//   const [uData, rData, sData] = await Promise.all([uRes.json(), rRes.json(), sRes.json()])
+
+//   if (uData.status !== 'OK') throw new Error(uData.comment ?? 'Codeforces user not found.')
+//   const u = uData.result[0]
+
+//   // Full rating history — every contest with full data
+//   const ratingHistory = (rData.status === 'OK' ? rData.result : []).map((r: any) => ({
+//     fullDate: new Date(r.ratingUpdateTimeSeconds * 1000).toISOString().slice(0, 10),
+//     date: new Date(r.ratingUpdateTimeSeconds * 1000).toISOString().slice(0, 7),
+//     rating: r.newRating, oldRating: r.oldRating,
+//     delta: r.newRating - r.oldRating,
+//     contest: r.contestName, rank: r.rank,
+//   }))
+
+//   const contests = (rData.status === 'OK' ? rData.result : [])
+//     .slice(-20).reverse().map((r: any) => ({
+//       name: r.contestName,
+//       date: new Date(r.ratingUpdateTimeSeconds * 1000).toISOString().slice(0, 10),
+//       rank: r.rank, delta: r.newRating - r.oldRating,
+//       newRating: r.newRating, oldRating: r.oldRating,
+//     }))
+
+//   // Process all submissions
+//   const subs = sData.status === 'OK' ? sData.result : []
+//   const acProbs = new Set<string>()
+//   const tagCount: Record<string, number> = {}
+//   const diffCount: Record<string, number> = {}
+//   const submDays = new Set<string>()
+
+//   // Weekly stats — last 7 days
+//   const now = Date.now()
+//   const weekMs = 7 * 24 * 3600 * 1000
+//   let weekSolved = 0, weekSubs = 0
+//   const weekDays = new Set<string>()
+
+//   for (const sub of subs) {
+//     const ts = sub.creationTimeSeconds * 1000
+//     const day = new Date(ts).toISOString().slice(0, 10)
+//     submDays.add(day)
+//     if (now - ts < weekMs) {
+//       weekSubs++
+//       weekDays.add(day)
+//     }
+//     if (sub.verdict !== 'OK') continue
+//     const key = `${sub.problem.contestId}-${sub.problem.index}`
+//     if (acProbs.has(key)) continue
+//     acProbs.add(key)
+//     if (now - ts < weekMs) weekSolved++
+//     for (const tag of sub.problem.tags ?? []) tagCount[tag] = (tagCount[tag] ?? 0) + 1
+//     const r = sub.problem.rating ?? 0
+//     if (r > 0) {
+//       const bucket = `${Math.floor(r / 200) * 200}-${Math.floor(r / 200) * 200 + 199}`
+//       diffCount[bucket] = (diffCount[bucket] ?? 0) + 1
+//     }
+//   }
+
+//   let streak = 0
+//   const today = new Date()
+//   for (let i = 0; i < 365; i++) {
+//     const d = new Date(today); d.setDate(d.getDate() - i)
+//     if (submDays.has(d.toISOString().slice(0, 10))) streak++
+//     else if (i > 0) break
+//   }
+
+//   return {
+//     handle: u.handle, rating: u.rating ?? 0, maxRating: u.maxRating ?? 0,
+//     rank: u.rank ?? 'unrated', maxRank: u.maxRank ?? 'unrated',
+//     totalSolved: acProbs.size, streakDays: streak,
+//     contribution: u.contribution ?? 0, friendCount: u.friendOfCount ?? 0,
+//     country: u.country ?? '', organization: u.organization ?? '',
+//     avatar: u.titlePhoto ?? '',
+//     ratingHistory, tagDistribution: tagCount, difficultyDist: diffCount, contests,
+//     weeklyStats: {
+//       solvedThisWeek: weekSolved, activeDays: weekDays.size,
+//       submissionsThisWeek: weekSubs,
+//       avgPerDay: weekDays.size > 0 ? Math.round((weekSolved / 7) * 10) / 10 : 0,
+//     },
+//   }
+// }
+
+// // ═══════════════════════════════════════════════════════════════════════════
+// // LEETCODE — tries 3 CORS proxies with auto-fallback
+// // ═══════════════════════════════════════════════════════════════════════════
+// const LC_GQL = `query getUserProfile($username: String!) {
+//   matchedUser(username: $username) {
+//     username
+//     profile { realName userAvatar ranking countryName }
+//     submitStats { acSubmissionNum { difficulty count submissions } }
+//     tagProblemCounts {
+//       advanced      { tagName problemsSolved }
+//       intermediate  { tagName problemsSolved }
+//       fundamental   { tagName problemsSolved }
+//     }
+//     languageProblemCount { languageName problemsSolved }
+//   }
+//   userContestRanking(username: $username) {
+//     rating globalRanking attendedContestsCount
+//   }
+//   userContestRankingHistory(username: $username) {
+//     attended rating ranking
+//     contest { title startTime }
+//   }
+// }`
+
+// export async function fetchLCData(handle: string): Promise<LCData> {
+//   const body = JSON.stringify({ query: LC_GQL, variables: { username: handle } })
+//   const proxies = [
+//     () => fetch('https://corsproxy.io/?' + encodeURIComponent('https://leetcode.com/graphql'), {
+//       method: 'POST', headers: { 'Content-Type': 'application/json' }, body,
+//     }),
+//     () => fetch('https://api.allorigins.win/post?url=' + encodeURIComponent('https://leetcode.com/graphql'), {
+//       method: 'POST', headers: { 'Content-Type': 'application/json' }, body,
+//     }),
+//     () => fetch('https://thingproxy.freeboard.io/fetch/https://leetcode.com/graphql', {
+//       method: 'POST', headers: { 'Content-Type': 'application/json' }, body,
+//     }),
+//   ]
+
+//   let raw: any = null
+//   for (const proxy of proxies) {
+//     try {
+//       const r = await proxy()
+//       if (!r.ok) continue
+//       const data = await r.json()
+//       raw = data?.contents ? (() => { try { return JSON.parse(data.contents) } catch { return null } })() : data
+//       if (raw?.data?.matchedUser) break
+//       raw = null
+//     } catch { continue }
+//   }
+
+//   if (!raw?.data?.matchedUser) throw new Error('LeetCode user not found or API unreachable. Check username & try again.')
+
+//   const mu = raw.data.matchedUser
+//   const cr = raw.data.userContestRanking
+//   const history = raw.data.userContestRankingHistory ?? []
+
+//   const ac = mu.submitStats?.acSubmissionNum ?? []
+//   const total  = ac.find((s: any) => s.difficulty === 'All')?.count       ?? 0
+//   const easy   = ac.find((s: any) => s.difficulty === 'Easy')?.count      ?? 0
+//   const medium = ac.find((s: any) => s.difficulty === 'Medium')?.count    ?? 0
+//   const hard   = ac.find((s: any) => s.difficulty === 'Hard')?.count      ?? 0
+//   const totalSubs = ac.find((s: any) => s.difficulty === 'All')?.submissions ?? 1
+
+//   const tagDist: Record<string, number> = {}
+//   for (const grp of [mu.tagProblemCounts?.advanced, mu.tagProblemCounts?.intermediate, mu.tagProblemCounts?.fundamental]) {
+//     for (const t of grp ?? []) if (t.problemsSolved > 0) tagDist[t.tagName] = (tagDist[t.tagName] ?? 0) + t.problemsSolved
+//   }
+
+//   const langStats: Record<string, number> = {}
+//   for (const l of mu.languageProblemCount ?? []) langStats[l.languageName] = l.problemsSolved
+
+//   const attended = history.filter((h: any) => h.attended)
+//     .sort((a: any, b: any) => a.contest.startTime - b.contest.startTime)
+
+//   const ratingHistory = attended.map((h: any, i: number) => {
+//     const prev = attended[i - 1]
+//     return {
+//       fullDate: new Date(h.contest.startTime * 1000).toISOString().slice(0, 10),
+//       date: new Date(h.contest.startTime * 1000).toISOString().slice(0, 7),
+//       rating: Math.round(h.rating),
+//       delta: prev ? Math.round(h.rating - prev.rating) : 0,
+//       contestName: h.contest.title, rank: h.ranking,
+//     }
+//   })
+
+//   const contests = [...attended].reverse().slice(0, 20).map((h: any, i: number, arr: any[]) => ({
+//     name: h.contest.title,
+//     date: new Date(h.contest.startTime * 1000).toISOString().slice(0, 10),
+//     rank: h.ranking, rating: Math.round(h.rating),
+//     delta: arr[i + 1] ? Math.round(h.rating - arr[i + 1].rating) : 0,
+//   }))
+
+//   const maxRating = ratingHistory.length ? Math.max(...ratingHistory.map(h => h.rating)) : 0
+
+//   return {
+//     handle, username: mu.profile?.realName ?? handle,
+//     avatar: mu.profile?.userAvatar ?? '', ranking: mu.profile?.ranking ?? 0,
+//     contestRating: cr ? Math.round(cr.rating) : 0, maxRating,
+//     totalSolved: total, easySolved: easy, mediumSolved: medium, hardSolved: hard,
+//     totalEasy: 803, totalMedium: 1685, totalHard: 712,
+//     acceptanceRate: totalSubs > 0 ? Math.round((total / totalSubs) * 10000) / 100 : 0,
+//     streak: 0, totalContests: cr?.attendedContestsCount ?? 0,
+//     globalRanking: cr?.globalRanking ?? 0,
+//     tagDistribution: tagDist, languageStats: langStats, ratingHistory, contests,
+//     weeklyStats: { solvedThisWeek: 0, activeDays: 0, avgPerDay: 0 },
+//   }
+// }
+
+// // ═══════════════════════════════════════════════════════════════════════════
+// // AI COACH — Gemini with multi-model fallback + rich prompt
+// // ═══════════════════════════════════════════════════════════════════════════
+// export interface AIResult {
+//   daily_problem_sheet: Array<{
+//     platform: string; problem_name: string; url: string
+//     focus_tag: string; estimated_difficulty: string
+//   }>
+//   weak_topic_analysis: string
+//   weekly_roadmap: Array<{ day: number; topic: string; resource_focus: string }>
+// }
+
+// export async function generateAIPlan(payload: {
+//   cfHandle?: string; lcHandle?: string
+//   cfRating?: number; cfMaxRating?: number; lcContestRating?: number
+//   cfTagDistribution?: Record<string, number>
+//   lcTagDistribution?: Record<string, number>
+//   cfTotalSolved?: number; lcTotalSolved?: number
+//   cfWeeklySolved?: number; lcEasy?: number; lcMedium?: number; lcHard?: number
+//   cfRecentContests?: Array<{ name: string; delta: number; rank: number }>
+//   cfDifficultyDist?: Record<string, number>
+// }): Promise<AIResult> {
+//   const KEY = import.meta.env.VITE_GEMINI_API_KEY
+//   if (!KEY) throw new Error('Missing VITE_GEMINI_API_KEY in .env — see .env.example')
+
+//   const {
+//     cfHandle = '', lcHandle = '', cfRating = 0, cfMaxRating = 0,
+//     lcContestRating = 0, cfTagDistribution = {}, lcTagDistribution = {},
+//     cfTotalSolved = 0, lcTotalSolved = 0, cfWeeklySolved = 0,
+//     lcEasy = 0, lcMedium = 0, lcHard = 0,
+//     cfRecentContests = [], cfDifficultyDist = {},
+//   } = payload
+
+//   // Build weak topic list from real data
+//   const allTags: Record<string, number> = {}
+//   for (const [k, v] of Object.entries(cfTagDistribution)) allTags[k] = (allTags[k] ?? 0) + v
+//   for (const [k, v] of Object.entries(lcTagDistribution)) allTags[k] = (allTags[k] ?? 0) + v
+//   const sorted = Object.entries(allTags).sort(([, a], [, b]) => a - b)
+//   const weakTopics = sorted.slice(0, 6).map(([t, c]) => `${t}(${c} solved)`)
+//   const strongTopics = sorted.slice(-4).reverse().map(([t, c]) => `${t}(${c} solved)`)
+//   const recentCF = cfRecentContests.slice(0, 5).map(c => `${c.name}:rank${c.rank}(${c.delta > 0 ? '+' : ''}${c.delta})`).join(', ')
+//   const diffSummary = Object.entries(cfDifficultyDist).map(([r, c]) => `${r}:${c}`).join(', ')
+
+//   const prompt = `You are an expert competitive programming coach. Analyze this user's REAL data and generate a highly personalized improvement plan.
+
+// REAL USER STATS:
+// - Codeforces: handle=${cfHandle || 'none'}, rating=${cfRating} (peak ${cfMaxRating}), solved=${cfTotalSolved}, solved_this_week=${cfWeeklySolved}
+// - LeetCode: handle=${lcHandle || 'none'}, contest_rating=${lcContestRating}, solved=${lcTotalSolved} (Easy=${lcEasy} Medium=${lcMedium} Hard=${lcHard})
+// - CF difficulty distribution: ${diffSummary || 'unknown'}
+// - Weak topics (least practiced): ${weakTopics.join(', ') || 'unknown'}
+// - Strong topics: ${strongTopics.join(', ') || 'unknown'}
+// - Recent CF contests: ${recentCF || 'none'}
+
+// Based on THIS SPECIFIC data, provide:
+// 1. 7 targeted practice problems (mix CF + LC) focusing on the weakest topics above
+// 2. Analysis of exactly WHY these are weak areas based on the numbers
+// 3. A 7-day roadmap to address the specific gaps shown in the data
+
+// Return ONLY valid JSON (no markdown, no backticks, no explanation):
+// {
+//   "daily_problem_sheet": [
+//     {
+//       "platform": "Codeforces",
+//       "problem_name": "exact problem title",
+//       "url": "https://codeforces.com/problemset/problem/ID/LETTER",
+//       "focus_tag": "exact topic tag",
+//       "estimated_difficulty": "1400"
+//     }
+//   ],
+//   "weak_topic_analysis": "3-4 sentences referencing actual numbers from user stats",
+//   "weekly_roadmap": [
+//     { "day": 1, "topic": "Topic Name", "resource_focus": "Specific 2-3 sentence plan" }
+//   ]
+// }
+
+// CRITICAL:
+// - daily_problem_sheet: exactly 7 entries, real CF/LC problem URLs
+// - weekly_roadmap: exactly 7 entries (day 1 through 7)
+// - Reference actual numbers from the stats above in your analysis
+// - Problems should target CF rating ${cfRating - 100} to ${cfRating + 200} range
+// - For LeetCode, match Hard problems only if hardSolved > 50`
+
+//   const models = ['gemini-2.0-flash', 'gemini-1.5-flash', 'gemini-1.5-flash-latest', 'gemini-1.0-pro']
+//   let lastErr = ''
+
+//   for (const model of models) {
+//     try {
+//       const r = await fetch(
+//         `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${KEY}`,
+//         {
+//           method: 'POST',
+//           headers: { 'Content-Type': 'application/json' },
+//           body: JSON.stringify({
+//             contents: [{ parts: [{ text: prompt }] }],
+//             generationConfig: { temperature: 0.4, maxOutputTokens: 3000 },
+//           }),
+//         }
+//       )
+//       if (!r.ok) { lastErr = `${model}: HTTP ${r.status} ${await r.text()}`; continue }
+//       const gData = await r.json()
+//       const text = gData?.candidates?.[0]?.content?.parts?.[0]?.text ?? ''
+//       if (!text) { lastErr = `${model}: empty response`; continue }
+//       const cleaned = text.replace(/```json\s*/g, '').replace(/```\s*/g, '').trim()
+//       const parsed = JSON.parse(cleaned)
+//       if (!parsed.daily_problem_sheet || !parsed.weekly_roadmap) throw new Error('Incomplete response')
+//       return parsed as AIResult
+//     } catch (e: any) { lastErr = e.message }
+//   }
+//   throw new Error(`AI Coach failed. ${lastErr}. Check your VITE_GEMINI_API_KEY in .env`)
+// }
+
+// // ═══════════════════════════════════════════════════════════════════════════
+// // DATABASE HELPERS
+// // ═══════════════════════════════════════════════════════════════════════════
+// export async function saveCFData(userId: string, d: CFData) {
+//   const { error } = await supabase.from('cf_data').upsert({
+//     user_id: userId, handle: d.handle, rating: d.rating, max_rating: d.maxRating,
+//     rank: d.rank, max_rank: d.maxRank, total_solved: d.totalSolved, streak_days: d.streakDays,
+//     contribution: d.contribution, friend_count: d.friendCount, country: d.country,
+//     organization: d.organization, avatar: d.avatar, rating_history: d.ratingHistory,
+//     tag_dist: d.tagDistribution, difficulty_dist: d.difficultyDist, contests: d.contests,
+//     cached_at: new Date().toISOString(),
+//   }, { onConflict: 'user_id' })
+//   if (error) throw error
+// }
+
+// export async function loadCFData(userId: string): Promise<CFData | null> {
+//   const { data } = await supabase.from('cf_data').select('*').eq('user_id', userId).single()
+//   if (!data) return null
+//   return {
+//     handle: data.handle, rating: data.rating, maxRating: data.max_rating,
+//     rank: data.rank, maxRank: data.max_rank, totalSolved: data.total_solved,
+//     streakDays: data.streak_days, contribution: data.contribution, friendCount: data.friend_count,
+//     country: data.country, organization: data.organization, avatar: data.avatar,
+//     ratingHistory: data.rating_history ?? [], tagDistribution: data.tag_dist ?? {},
+//     difficultyDist: data.difficulty_dist ?? {}, contests: data.contests ?? [],
+//     weeklyStats: { solvedThisWeek: 0, activeDays: 0, submissionsThisWeek: 0, avgPerDay: 0 },
+//   }
+// }
+
+// export async function saveLCData(userId: string, d: LCData) {
+//   const { error } = await supabase.from('lc_data').upsert({
+//     user_id: userId, handle: d.handle, real_name: d.username, avatar: d.avatar,
+//     ranking: d.ranking, contest_rating: d.contestRating, max_rating: d.maxRating,
+//     total_solved: d.totalSolved, easy_solved: d.easySolved, medium_solved: d.mediumSolved,
+//     hard_solved: d.hardSolved, total_easy: d.totalEasy, total_medium: d.totalMedium,
+//     total_hard: d.totalHard, acceptance_rate: d.acceptanceRate, streak: d.streak,
+//     total_contests: d.totalContests, global_ranking: d.globalRanking,
+//     tag_dist: d.tagDistribution, rating_history: d.ratingHistory,
+//     contests: d.contests, cached_at: new Date().toISOString(),
+//   }, { onConflict: 'user_id' })
+//   if (error) throw error
+// }
+
+// export async function loadLCData(userId: string): Promise<LCData | null> {
+//   const { data } = await supabase.from('lc_data').select('*').eq('user_id', userId).single()
+//   if (!data) return null
+//   return {
+//     handle: data.handle, username: data.real_name, avatar: data.avatar,
+//     ranking: data.ranking, contestRating: data.contest_rating, maxRating: data.max_rating,
+//     totalSolved: data.total_solved, easySolved: data.easy_solved, mediumSolved: data.medium_solved,
+//     hardSolved: data.hard_solved, totalEasy: data.total_easy, totalMedium: data.total_medium,
+//     totalHard: data.total_hard, acceptanceRate: data.acceptance_rate, streak: data.streak,
+//     totalContests: data.total_contests, globalRanking: data.global_ranking,
+//     tagDistribution: data.tag_dist ?? {}, languageStats: {},
+//     ratingHistory: data.rating_history ?? [], contests: data.contests ?? [],
+//     weeklyStats: { solvedThisWeek: 0, activeDays: 0, avgPerDay: 0 },
+//   }
+// }
+
+// export interface Note {
+//   id: string; title: string; content: string
+//   platform: 'CF' | 'LC' | 'BOTH'; tags: string[]
+//   url: string; bookmarked: boolean; created_at: string
+// }
+// export async function getNotes(userId: string): Promise<Note[]> {
+//   const { data, error } = await supabase.from('notes').select('*').eq('user_id', userId).order('created_at', { ascending: false })
+//   if (error) throw error; return (data ?? []) as Note[]
+// }
+// export async function createNote(userId: string, note: Omit<Note, 'id' | 'created_at'>): Promise<Note> {
+//   const { data, error } = await supabase.from('notes').insert({ ...note, user_id: userId }).select().single()
+//   if (error) throw error; return data as Note
+// }
+// export async function updateNote(id: string, updates: Partial<Note>): Promise<void> {
+//   const { error } = await supabase.from('notes').update(updates).eq('id', id); if (error) throw error
+// }
+// export async function deleteNote(id: string): Promise<void> {
+//   const { error } = await supabase.from('notes').delete().eq('id', id); if (error) throw error
+// }
+
+// export interface Goal {
+//   id: string; title: string; platform: 'CF' | 'LC' | 'BOTH'
+//   target: number; current: number; deadline: string; color: string; achieved: boolean; created_at: string
+// }
+// export async function getGoals(userId: string): Promise<Goal[]> {
+//   const { data, error } = await supabase.from('goals').select('*').eq('user_id', userId).order('created_at', { ascending: false })
+//   if (error) throw error; return (data ?? []) as Goal[]
+// }
+// export async function createGoal(userId: string, goal: Omit<Goal, 'id' | 'created_at'>): Promise<Goal> {
+//   const { data, error } = await supabase.from('goals').insert({ ...goal, user_id: userId }).select().single()
+//   if (error) throw error; return data as Goal
+// }
+// export async function updateGoal(id: string, updates: Partial<Goal>): Promise<void> {
+//   const { error } = await supabase.from('goals').update(updates).eq('id', id); if (error) throw error
+// }
+// export async function deleteGoal(id: string): Promise<void> {
+//   const { error } = await supabase.from('goals').delete().eq('id', id); if (error) throw error
+// }
+
+// export async function saveAISession(userId: string, result: AIResult): Promise<void> {
+//   await supabase.from('ai_sessions').insert({
+//     user_id: userId, roadmap: result.weekly_roadmap,
+//     problems: result.daily_problem_sheet, weak_analysis: result.weak_topic_analysis,
+//   })
+// }
+// export async function getLatestAISession(userId: string): Promise<AIResult | null> {
+//   const { data } = await supabase.from('ai_sessions').select('*')
+//     .eq('user_id', userId).order('created_at', { ascending: false }).limit(1).single()
+//   if (!data) return null
+//   return { weekly_roadmap: data.roadmap, daily_problem_sheet: data.problems, weak_topic_analysis: data.weak_analysis }
+// }
+
+
 import { supabase } from '../lib/supabase'
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -925,14 +1390,18 @@ const LC_GQL = `query getUserProfile($username: String!) {
   matchedUser(username: $username) {
     username
     profile { realName userAvatar ranking countryName }
-    submitStats { acSubmissionNum { difficulty count submissions } }
+    submitStats {
+      acSubmissionNum { difficulty count submissions }
+      totalSubmissionNum { difficulty count submissions }
+    }
     tagProblemCounts {
-      advanced      { tagName problemsSolved }
-      intermediate  { tagName problemsSolved }
-      fundamental   { tagName problemsSolved }
+      advanced      { tagName tagSlug problemsSolved }
+      intermediate  { tagName tagSlug problemsSolved }
+      fundamental   { tagName tagSlug problemsSolved }
     }
     languageProblemCount { languageName problemsSolved }
   }
+  allQuestionsCount { difficulty count }
   userContestRanking(username: $username) {
     rating globalRanking attendedContestsCount
   }
@@ -1017,7 +1486,10 @@ export async function fetchLCData(handle: string): Promise<LCData> {
     avatar: mu.profile?.userAvatar ?? '', ranking: mu.profile?.ranking ?? 0,
     contestRating: cr ? Math.round(cr.rating) : 0, maxRating,
     totalSolved: total, easySolved: easy, mediumSolved: medium, hardSolved: hard,
-    totalEasy: 803, totalMedium: 1685, totalHard: 712,
+    // Real total counts from LeetCode API
+    totalEasy:   (raw.data?.allQuestionsCount?.find((q: any) => q.difficulty === 'Easy')?.count ?? 803),
+    totalMedium: (raw.data?.allQuestionsCount?.find((q: any) => q.difficulty === 'Medium')?.count ?? 1685),
+    totalHard:   (raw.data?.allQuestionsCount?.find((q: any) => q.difficulty === 'Hard')?.count ?? 712),
     acceptanceRate: totalSubs > 0 ? Math.round((total / totalSubs) * 10000) / 100 : 0,
     streak: 0, totalContests: cr?.attendedContestsCount ?? 0,
     globalRanking: cr?.globalRanking ?? 0,
@@ -1108,7 +1580,7 @@ CRITICAL:
 - Problems should target CF rating ${cfRating - 100} to ${cfRating + 200} range
 - For LeetCode, match Hard problems only if hardSolved > 50`
 
-  const models = ['gemini-2.0-flash', 'gemini-1.5-flash', 'gemini-1.5-flash-latest', 'gemini-1.0-pro']
+  const models = ['gemini-2.0-flash-lite', 'gemini-2.0-flash', 'gemini-1.5-flash-8b', 'gemini-1.5-flash', 'gemini-1.5-pro']
   let lastErr = ''
 
   for (const model of models) {

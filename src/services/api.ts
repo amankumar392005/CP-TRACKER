@@ -64,7 +64,28 @@ export interface Goal {
 // ═══════════════════════════════════════════════════════════════════════════
 // CODEFORCES — direct browser fetch (CF API has open CORS)
 // ═══════════════════════════════════════════════════════════════════════════
+
+// =============================================================================
+// IN-MEMORY CACHE — 5 min TTL so repeat refresh is instant
+// =============================================================================
+const CACHE_TTL = 5 * 60 * 1000
+const _cache = new Map<string, { data: unknown; ts: number }>()
+function cacheGet<T>(key: string): T | null {
+  const e = _cache.get(key)
+  if (!e) return null
+  if (Date.now() - e.ts > CACHE_TTL) { _cache.delete(key); return null }
+  return e.data as T
+}
+function cacheSet(key: string, data: unknown) { _cache.set(key, { data, ts: Date.now() }) }
+export function cacheClear(handle?: string) {
+  if (handle) { _cache.delete('cf:' + handle); _cache.delete('lc:' + handle) }
+  else _cache.clear()
+}
+
 export async function fetchCFData(handle: string): Promise<CFData> {
+  const _cfCached = cacheGet<CFData>('cf:' + handle)
+  if (_cfCached) return _cfCached
+
   const base = 'https://codeforces.com/api'
   const [uRes, rRes, sRes] = await Promise.all([
     fetch(`${base}/user.info?handles=${encodeURIComponent(handle)}`),
@@ -128,7 +149,8 @@ export async function fetchCFData(handle: string): Promise<CFData> {
     else if (i > 0) break
   }
 
-  return {
+
+  const _cfResult = {
     handle: u.handle, rating: u.rating ?? 0, maxRating: u.maxRating ?? 0,
     rank: u.rank ?? 'unrated', maxRank: u.maxRank ?? 'unrated',
     totalSolved: acProbs.size, streakDays: streak,
@@ -142,6 +164,8 @@ export async function fetchCFData(handle: string): Promise<CFData> {
       avgPerDay: Math.round((weekSolved / 7) * 10) / 10,
     },
   }
+  cacheSet('cf:' + handle, _cfResult)
+  return _cfResult
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -173,70 +197,74 @@ const LC_GQL = `query getUserProfile($username: String!) {
 }`
 
 export async function fetchLCData(handle: string): Promise<LCData> {
+  const _lcCached = cacheGet<LCData>('lc:' + handle)
+  if (_lcCached) return _lcCached
+
   const body = JSON.stringify({ query: LC_GQL, variables: { username: handle } })
 
-  // ── Strategy 1: Supabase Edge Function (server-side, no CORS issues — BEST) ──
-  // Deploy supabase/functions/lc-proxy/index.ts first:
-  //   npx supabase functions deploy lc-proxy
+  // Helper: fetch with timeout so we never hang forever
+  const fetchWithTimeout = (fn: () => Promise<Response>, ms = 8000): Promise<Response> => {
+    return Promise.race([
+      fn(),
+      new Promise<Response>((_, reject) =>
+        setTimeout(() => reject(new Error('timeout')), ms)
+      ),
+    ])
+  }
+
   let raw: any = null
+
+  // ── Strategy 1: Supabase Edge Function (server-side — deploy lc-proxy first) ──
   const supabaseUrl = (import.meta as any).env?.VITE_SUPABASE_URL as string | undefined
+  const supabaseKey = (import.meta as any).env?.VITE_SUPABASE_ANON_KEY as string | undefined
   if (supabaseUrl && supabaseUrl.includes('supabase.co')) {
     try {
-      const edgeUrl = `${supabaseUrl}/functions/v1/lc-proxy`
-      const r = await fetch(edgeUrl, {
+      const r = await fetchWithTimeout(() => fetch(`${supabaseUrl}/functions/v1/lc-proxy`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${(import.meta as any).env?.VITE_SUPABASE_ANON_KEY ?? ''}`,
+          'Authorization': `Bearer ${supabaseKey ?? ''}`,
         },
         body: JSON.stringify({ username: handle }),
-      })
+      }), 10000)
       if (r.ok) {
         const data = await r.json()
         if (data?.data?.matchedUser) raw = data
       }
-    } catch { /* fall through */ }
+    } catch { /* fall through to proxies */ }
   }
 
-  // ── Strategy 2: CORS proxies (browser-side, often rate-limited/blocked) ──
+  // ── Strategy 2: CORS proxies with timeout (each gets 8s max) ──
   if (!raw?.data?.matchedUser) {
     const GQL_URL = 'https://leetcode.com/graphql'
     const proxies = [
       () => fetch(`https://corsproxy.io/?${encodeURIComponent(GQL_URL)}`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body,
+        method: 'POST', headers: { 'Content-Type': 'application/json' }, body,
       }),
       () => fetch(`https://api.allorigins.win/post?url=${encodeURIComponent(GQL_URL)}`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body,
+        method: 'POST', headers: { 'Content-Type': 'application/json' }, body,
       }),
       () => fetch('https://cors-anywhere.herokuapp.com/' + GQL_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'X-Requested-With': 'XMLHttpRequest' },
-        body,
+        method: 'POST', headers: { 'Content-Type': 'application/json', 'X-Requested-With': 'XMLHttpRequest' }, body,
       }),
     ]
     for (const proxy of proxies) {
       try {
-        const r = await proxy()
+        const r = await fetchWithTimeout(proxy, 8000)
         if (!r.ok) continue
         const data = await r.json()
         raw = data?.contents ? (() => { try { return JSON.parse(data.contents) } catch { return null } })() : data
         if (raw?.data?.matchedUser) break
         raw = null
-      } catch { continue }
+      } catch { continue }  // timeout or network error — try next proxy
     }
   }
 
   if (!raw?.data?.matchedUser) {
     throw new Error(
-      'LeetCode data unavailable.\n\n' +
-      'Fix: Deploy the included Supabase Edge Function:\n' +
-      '  npx supabase functions deploy lc-proxy\n\n' +
-      'This proxies the LeetCode API server-side, bypassing CORS.\n' +
-      'See supabase/functions/lc-proxy/index.ts in your project.'
+      'LeetCode sync failed. All proxies timed out or were blocked.\n' +
+      'Fix: deploy the Supabase edge function for reliable sync:\n' +
+      '  npx supabase functions deploy lc-proxy'
     )
   }
 
@@ -280,7 +308,8 @@ export async function fetchLCData(handle: string): Promise<LCData> {
     delta: arr[i + 1] ? Math.round(h.rating - arr[i + 1].rating) : 0,
   }))
 
-  return {
+
+  const _lcResult = {
     handle, username: mu.profile?.realName ?? handle,
     avatar: mu.profile?.userAvatar ?? '', ranking: mu.profile?.ranking ?? 0,
     contestRating: cr ? Math.round(cr.rating) : 0,
@@ -295,6 +324,8 @@ export async function fetchLCData(handle: string): Promise<LCData> {
     tagDistribution: tagDist, languageStats: langStats, ratingHistory, contests,
     weeklyStats: { solvedThisWeek: 0, activeDays: 0, avgPerDay: 0 },
   }
+  cacheSet('lc:' + handle, _lcResult)
+  return _lcResult
 }
 
 // ═══════════════════════════════════════════════════════════════════════════

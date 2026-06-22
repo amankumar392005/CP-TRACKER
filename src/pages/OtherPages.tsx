@@ -111,7 +111,7 @@
 //             <SectionHeader title="Skill Radar" sub="CF vs LC topic mastery" />
 //             <ResponsiveContainer width="100%" height={250}>
 //               <RadarChart data={radarData} cx="50%" cy="50%" outerRadius="70%">
-//                 <PolarGrid stroke="#1a2d4a" />
+//                 <PolarGrid stroke="var(--border)" />
 //                 <PolarAngleAxis dataKey="skill" tick={{ fill: '#6b7280', fontSize: 9 }} />
 //                 <Radar dataKey="cf" stroke="#3b82f6" fill="#3b82f6" fillOpacity={0.2} strokeWidth={2} name="CF" />
 //                 <Radar dataKey="lc" stroke="#06b6d4" fill="#06b6d4" fillOpacity={0.15} strokeWidth={2} name="LC" />
@@ -126,7 +126,7 @@
 //           <SectionHeader title="Weekly Activity" sub="Demo data" />
 //           <ResponsiveContainer width="100%" height={250}>
 //             <BarChart data={weekly}>
-//               <CartesianGrid strokeDasharray="3 3" stroke="#1a2d4a" vertical={false} />
+//               <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" vertical={false} />
 //               <XAxis dataKey="day" tick={{ fill: '#4b5563', fontSize: 11 }} axisLine={false} tickLine={false} />
 //               <YAxis tick={{ fill: '#4b5563', fontSize: 11 }} axisLine={false} tickLine={false} width={22} />
 //               <Tooltip content={<ChartTooltip />} />
@@ -142,7 +142,7 @@
 //           <SectionHeader title="Rating History" sub="CF & LC over time" />
 //           <ResponsiveContainer width="100%" height={220}>
 //             <LineChart data={ratingChart}>
-//               <CartesianGrid strokeDasharray="3 3" stroke="#1a2d4a" />
+//               <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
 //               <XAxis dataKey="m" tick={{ fill: '#4b5563', fontSize: 10 }} axisLine={false} tickLine={false} />
 //               <YAxis tick={{ fill: '#4b5563', fontSize: 11 }} axisLine={false} tickLine={false} width={42} />
 //               <Tooltip content={<ChartTooltip />} />
@@ -447,7 +447,7 @@
 //                 <SectionHeader title="CF Rating History" />
 //                 <ResponsiveContainer width="100%" height={200}>
 //                   <LineChart data={ratingChart}>
-//                     <CartesianGrid strokeDasharray="3 3" stroke="#1a2d4a" />
+//                     <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
 //                     <XAxis dataKey="d" tick={{ fill: '#4b5563', fontSize: 10 }} axisLine={false} tickLine={false} />
 //                     <YAxis tick={{ fill: '#4b5563', fontSize: 11 }} axisLine={false} tickLine={false} width={42} />
 //                     <Tooltip content={<ChartTooltip />} />
@@ -462,7 +462,7 @@
 //                 <SectionHeader title="Skill Radar" />
 //                 <ResponsiveContainer width="100%" height={200}>
 //                   <RadarChart data={radarCmp} cx="50%" cy="50%" outerRadius="70%">
-//                     <PolarGrid stroke="#1a2d4a" />
+//                     <PolarGrid stroke="var(--border)" />
 //                     <PolarAngleAxis dataKey="skill" tick={{ fill: '#6b7280', fontSize: 9 }} />
 //                     <Radar dataKey="u1" stroke="#3b82f6" fill="#3b82f6" fillOpacity={0.2} strokeWidth={2} name={u1cf?.handle ?? h1} />
 //                     <Radar dataKey="u2" stroke="#06b6d4" fill="#06b6d4" fillOpacity={0.15} strokeWidth={2} name={u2cf?.handle ?? h2} />
@@ -900,7 +900,7 @@
 //                 <div key={s.topic} className="flex items-center justify-between">
 //                   <div className="flex items-center gap-2">
 //                     <div className="w-1.5 h-1.5 rounded-full bg-green-400" />
-//                     <span className="text-slate-300 text-sm capitalize">{s.topic}</span>
+//                     <span className="text-sm capitalize" style={{color:"var(--text-second)"}}>{s.topic}</span>
 //                   </div>
 //                   <span className="text-green-400 font-mono font-bold text-sm">{s.count}</span>
 //                 </div>
@@ -914,7 +914,7 @@
 //                 <div key={s.topic} className="flex items-center justify-between">
 //                   <div className="flex items-center gap-2">
 //                     <div className="w-1.5 h-1.5 rounded-full bg-red-400" />
-//                     <span className="text-slate-300 text-sm capitalize">{s.topic}</span>
+//                     <span className="text-sm capitalize" style={{color:"var(--text-second)"}}>{s.topic}</span>
 //                   </div>
 //                   <span className="text-red-400 font-mono font-bold text-sm">{s.count}</span>
 //                 </div>
@@ -931,15 +931,15 @@
 //             <SectionHeader title="Skill Radar" sub="CF vs LC topic mastery (real data)" />
 //             <ResponsiveContainer width="100%" height={260}>
 //               <RadarChart data={radarData} cx="50%" cy="50%" outerRadius="70%">
-//                 <PolarGrid stroke="#1e2d45" />
-//                 <PolarAngleAxis dataKey="skill" tick={{ fill: '#64748b', fontSize: 9 }} />
+//                 <PolarGrid stroke="var(--border)" />
+//                 <PolarAngleAxis dataKey="skill" tick={{ fill: 'var(--text-muted)', fontSize: 9 }} />
 //                 <Radar dataKey="CF" stroke="#3b82f6" fill="#3b82f6" fillOpacity={0.2} strokeWidth={2} name="CF" />
 //                 <Radar dataKey="LC" stroke="#f59e0b" fill="#f59e0b" fillOpacity={0.15} strokeWidth={2} name="LC" />
 //               </RadarChart>
 //             </ResponsiveContainer>
 //             <div className="flex gap-5 mt-2">
-//               <div className="flex items-center gap-1.5"><div className="w-3 h-0.5 bg-blue-500 rounded" /><span className="text-slate-400 text-xs">Codeforces</span></div>
-//               <div className="flex items-center gap-1.5"><div className="w-3 h-0.5 bg-amber-500 rounded" /><span className="text-slate-400 text-xs">LeetCode</span></div>
+//               <div className="flex items-center gap-1.5"><div className="w-3 h-0.5 bg-blue-500 rounded" /><span className="text-xs" style={{color:"var(--text-muted)"}}>Codeforces</span></div>
+//               <div className="flex items-center gap-1.5"><div className="w-3 h-0.5 bg-amber-500 rounded" /><span className="text-xs" style={{color:"var(--text-muted)"}}>LeetCode</span></div>
 //             </div>
 //           </Card>
 //         ) : (
@@ -951,9 +951,9 @@
 //             <SectionHeader title="CF Difficulty Distribution" sub="Problems solved by rating range" />
 //             <ResponsiveContainer width="100%" height={260}>
 //               <BarChart data={diffChart} margin={{ left: 0, right: 10 }}>
-//                 <CartesianGrid strokeDasharray="3 3" stroke="#1e2d45" vertical={false} />
-//                 <XAxis dataKey="range" tick={{ fill: '#475569', fontSize: 10 }} axisLine={false} tickLine={false} />
-//                 <YAxis tick={{ fill: '#475569', fontSize: 10 }} axisLine={false} tickLine={false} width={35} />
+//                 <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" vertical={false} />
+//                 <XAxis dataKey="range" tick={{ fill: 'var(--text-muted)', fontSize: 10 }} axisLine={false} tickLine={false} />
+//                 <YAxis tick={{ fill: 'var(--text-muted)', fontSize: 10 }} axisLine={false} tickLine={false} width={35} />
 //                 <Tooltip content={<ChartTooltip />} />
 //                 <Bar dataKey="count" name="Solved" radius={[4, 4, 0, 0]} fill="#3b82f6" />
 //               </BarChart>
@@ -979,12 +979,12 @@
 //                 <div key={d.label} className="bg-white/[0.03] border border-white/[0.07] rounded-xl p-4">
 //                   <div className="flex items-center justify-between mb-2">
 //                     <span className="font-semibold text-sm" style={{ color: d.color }}>{d.label}</span>
-//                     <span className="text-white font-mono font-bold">{d.solved.toLocaleString()}</span>
+//                     <span className="font-mono font-bold" style={{color:"var(--text-primary)"}}>{d.solved.toLocaleString()}</span>
 //                   </div>
 //                   <div className="h-1.5 bg-white/[0.06] rounded-full overflow-hidden">
 //                     <div className="h-full rounded-full" style={{ width: `${pct}%`, backgroundColor: d.color }} />
 //                   </div>
-//                   <p className="text-slate-500 text-xs mt-1">{pct}% of {d.total}</p>
+//                   <p className="text-xs mt-1" style={{color:"var(--text-muted)"}}>{pct}% of {d.total}</p>
 //                 </div>
 //               )
 //             })}
@@ -1079,27 +1079,27 @@
 //         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
 //           {cfData && <div className="card-p bg-blue-500/5 border-blue-500/20 py-3">
 //             <p className="label mb-1">CF Data Ready</p>
-//             <p className="text-white font-mono font-bold">{cfData.handle} · {cfData.rating}</p>
-//             <p className="text-slate-500 text-xs">{cfData.totalSolved} solved · {Object.keys(cfData.tagDistribution).length} topics</p>
+//             <p className="font-mono font-bold" style={{color:"var(--text-primary)"}}>{cfData.handle} · {cfData.rating}</p>
+//             <p className="text-xs" style={{color:"var(--text-muted)"}}>{cfData.totalSolved} solved · {Object.keys(cfData.tagDistribution).length} topics</p>
 //           </div>}
 //           {lcData && <div className="card-p bg-amber-500/5 border-amber-500/20 py-3">
 //             <p className="label mb-1">LC Data Ready</p>
-//             <p className="text-white font-mono font-bold">{lcData.handle} · {lcData.contestRating}</p>
-//             <p className="text-slate-500 text-xs">{lcData.totalSolved} solved · E{lcData.easySolved}/M{lcData.mediumSolved}/H{lcData.hardSolved}</p>
+//             <p className="font-mono font-bold" style={{color:"var(--text-primary)"}}>{lcData.handle} · {lcData.contestRating}</p>
+//             <p className="text-xs" style={{color:"var(--text-muted)"}}>{lcData.totalSolved} solved · E{lcData.easySolved}/M{lcData.mediumSolved}/H{lcData.hardSolved}</p>
 //           </div>}
 //           {cfData && Object.keys(cfData.tagDistribution).length > 0 && (
 //             <div className="card-p py-3">
 //               <p className="label mb-1">Weakest CF Topic</p>
-//               <p className="text-white font-semibold capitalize">
+//               <p className="font-semibold capitalize" style={{color:"var(--text-primary)"}}>
 //                 {Object.entries(cfData.tagDistribution).sort(([, a], [, b]) => a - b)[0]?.[0] ?? 'N/A'}
 //               </p>
-//               <p className="text-slate-500 text-xs">Least practiced area</p>
+//               <p className="text-xs" style={{color:"var(--text-muted)"}}>Least practiced area</p>
 //             </div>
 //           )}
 //           {genTime && <div className="card-p py-3">
 //             <p className="label mb-1">Last Generated</p>
-//             <p className="text-white text-xs">{genTime}</p>
-//             <p className="text-slate-500 text-xs">From your real stats</p>
+//             <p className="text-xs" style={{color:"var(--text-primary)"}}>{genTime}</p>
+//             <p className="text-xs" style={{color:"var(--text-muted)"}}>From your real stats</p>
 //           </div>}
 //         </div>
 //       )}
@@ -1122,8 +1122,8 @@
 //       {!result && !loading && !error && (
 //         <div className="card-p text-center py-14 border-blue-500/20 bg-blue-500/5">
 //           <Bot size={48} className="text-slate-600 mx-auto mb-4" />
-//           <h3 className="text-white font-bold text-lg mb-2">Generate Your Personalized Plan</h3>
-//           <p className="text-slate-400 text-sm mb-6 max-w-md mx-auto">
+//           <h3 className="font-bold text-lg mb-2" style={{color:"var(--text-primary)"}}>Generate Your Personalized Plan</h3>
+//           <p className="text-sm mb-6 max-w-md mx-auto" style={{color:"var(--text-muted)"}}>
 //             The AI will analyze your actual Codeforces and LeetCode stats — rating, solved counts, weak topics, recent contests — and build a targeted improvement plan just for you.
 //           </p>
 //           <button onClick={generate} disabled={loading} className="btn-primary">
@@ -1138,7 +1138,7 @@
 //           {result.weak_topic_analysis && (
 //             <Card className="border-red-500/20 bg-red-500/5">
 //               <SectionHeader title="🎯 AI Analysis of Your Data" />
-//               <p className="text-slate-300 text-sm leading-relaxed">{result.weak_topic_analysis}</p>
+//               <p className="text-sm leading-relaxed" style={{color:"var(--text-second)"}}>{result.weak_topic_analysis}</p>
 //             </Card>
 //           )}
 
@@ -1153,9 +1153,9 @@
 //                       {i + 1}
 //                     </div>
 //                     <div className="flex-1 min-w-0">
-//                       <p className="text-white font-semibold text-sm truncate">{p.problem_name}</p>
+//                       <p className="font-semibold text-sm truncate" style={{color:"var(--text-primary)"}}>{p.problem_name}</p>
 //                       <div className="flex items-center gap-2 mt-0.5">
-//                         <span className="text-xs bg-white/[0.05] border border-white/[0.08] text-slate-400 px-2 py-0.5 rounded-md capitalize">{p.focus_tag}</span>
+//                         <span className="text-xs bg-white/[0.05] border border-white/[0.08]px-2 py-0.5 rounded-md capitalize" style={{color:"var(--text-muted)"}}>{p.focus_tag}</span>
 //                         <span className={`text-xs font-bold font-mono ${diffColor[p.estimated_difficulty] ?? 'text-slate-400'}`}>{p.estimated_difficulty}</span>
 //                       </div>
 //                     </div>
@@ -1180,10 +1180,10 @@
 //                 {result.weekly_roadmap.map(d => (
 //                   <div key={d.day} className="bg-white/[0.03] border border-white/[0.07] rounded-xl p-4 hover:border-blue-500/20 hover:bg-blue-500/5 transition-all">
 //                     <div className="flex items-center justify-between mb-2">
-//                       <span className="text-[11px] font-semibold text-slate-500 uppercase tracking-widest">Day {d.day}</span>
+//                       <span className="text-[11px] font-semibolduppercase tracking-widest" style={{color:"var(--text-muted)"}}>Day {d.day}</span>
 //                     </div>
-//                     <p className="text-white font-bold text-sm mb-1.5">{d.topic}</p>
-//                     <p className="text-slate-500 text-xs leading-relaxed">{d.resource_focus}</p>
+//                     <p className="font-bold text-sm mb-1.5" style={{color:"var(--text-primary)"}}>{d.topic}</p>
+//                     <p className="text-xs leading-relaxed" style={{color:"var(--text-muted)"}}>{d.resource_focus}</p>
 //                   </div>
 //                 ))}
 //               </div>
@@ -1399,31 +1399,31 @@
 //                   {item.p === 'CF' && (item.d as CFData) ? (
 //                     <>
 //                       <div className="bg-white/[0.04] border border-white/[0.07] rounded-lg p-2">
-//                         <p className="font-mono font-bold text-white">{(item.d as CFData).rating}</p>
-//                         <p className="text-slate-500 text-xs">Rating</p>
+//                         <p className="font-mono font-bold" style={{color:"var(--text-primary)"}}>{(item.d as CFData).rating}</p>
+//                         <p className="text-xs" style={{color:"var(--text-muted)"}}>Rating</p>
 //                       </div>
 //                       <div className="bg-white/[0.04] border border-white/[0.07] rounded-lg p-2">
-//                         <p className="font-mono font-bold text-white">{(item.d as CFData).totalSolved}</p>
-//                         <p className="text-slate-500 text-xs">Solved</p>
+//                         <p className="font-mono font-bold" style={{color:"var(--text-primary)"}}>{(item.d as CFData).totalSolved}</p>
+//                         <p className="text-xs" style={{color:"var(--text-muted)"}}>Solved</p>
 //                       </div>
 //                       <div className="bg-white/[0.04] border border-white/[0.07] rounded-lg p-2">
-//                         <p className="font-mono font-bold text-white">{(item.d as CFData).maxRating}</p>
-//                         <p className="text-slate-500 text-xs">Max</p>
+//                         <p className="font-mono font-bold" style={{color:"var(--text-primary)"}}>{(item.d as CFData).maxRating}</p>
+//                         <p className="text-xs" style={{color:"var(--text-muted)"}}>Max</p>
 //                       </div>
 //                     </>
 //                   ) : item.p === 'LC' && (item.d as LCData) ? (
 //                     <>
 //                       <div className="bg-white/[0.04] border border-white/[0.07] rounded-lg p-2">
-//                         <p className="font-mono font-bold text-white">{(item.d as LCData).contestRating}</p>
-//                         <p className="text-slate-500 text-xs">Rating</p>
+//                         <p className="font-mono font-bold" style={{color:"var(--text-primary)"}}>{(item.d as LCData).contestRating}</p>
+//                         <p className="text-xs" style={{color:"var(--text-muted)"}}>Rating</p>
 //                       </div>
 //                       <div className="bg-white/[0.04] border border-white/[0.07] rounded-lg p-2">
-//                         <p className="font-mono font-bold text-white">{(item.d as LCData).totalSolved}</p>
-//                         <p className="text-slate-500 text-xs">Solved</p>
+//                         <p className="font-mono font-bold" style={{color:"var(--text-primary)"}}>{(item.d as LCData).totalSolved}</p>
+//                         <p className="text-xs" style={{color:"var(--text-muted)"}}>Solved</p>
 //                       </div>
 //                       <div className="bg-white/[0.04] border border-white/[0.07] rounded-lg p-2">
-//                         <p className="font-mono font-bold text-white">#{(item.d as LCData).globalRanking?.toLocaleString()}</p>
-//                         <p className="text-slate-500 text-xs">Rank</p>
+//                         <p className="font-mono font-bold" style={{color:"var(--text-primary)"}}>#{(item.d as LCData).globalRanking?.toLocaleString()}</p>
+//                         <p className="text-xs" style={{color:"var(--text-muted)"}}>Rank</p>
 //                       </div>
 //                     </>
 //                   ) : <div className="col-span-3 text-slate-500 text-sm">No data</div>}
@@ -1447,7 +1447,7 @@
 //                   <div key={f.label}>
 //                     <div className="flex justify-between mb-2 text-sm">
 //                       <span className={`font-mono font-bold ${w === 'p1' ? 'text-blue-400' : 'text-slate-400'}`}>{v1.toLocaleString()}</span>
-//                       <span className="text-slate-400 font-medium text-xs uppercase tracking-wider">{f.label}</span>
+//                       <span className="font-medium text-xs uppercase tracking-wider" style={{color:"var(--text-muted)"}}>{f.label}</span>
 //                       <span className={`font-mono font-bold ${w === 'p2' ? 'text-amber-400' : 'text-slate-400'}`}>{v2.toLocaleString()}</span>
 //                     </div>
 //                     <div className="flex gap-1.5 h-2.5">
@@ -1467,12 +1467,12 @@
 //             <div className="mt-5 pt-4 border-t border-white/[0.06] flex items-center justify-center gap-3">
 //               <div className="text-center">
 //                 <p className="text-blue-400 font-mono font-bold text-lg">{p1wins}</p>
-//                 <p className="text-slate-500 text-xs">{label1} wins</p>
+//                 <p className="text-xs" style={{color:"var(--text-muted)"}}>{label1} wins</p>
 //               </div>
 //               <div className="text-slate-600 font-bold">vs</div>
 //               <div className="text-center">
 //                 <p className="text-amber-400 font-mono font-bold text-lg">{p2wins}</p>
-//                 <p className="text-slate-500 text-xs">{label2} wins</p>
+//                 <p className="text-xs" style={{color:"var(--text-muted)"}}>{label2} wins</p>
 //               </div>
 //             </div>
 //           </Card>
@@ -1484,17 +1484,17 @@
 //                 <SectionHeader title="Rating History" sub="Progression over time" />
 //                 <ResponsiveContainer width="100%" height={210}>
 //                   <LineChart data={ratingChart}>
-//                     <CartesianGrid strokeDasharray="3 3" stroke="#1e2d45" vertical={false} />
-//                     <XAxis dataKey="date" tick={{ fill: '#475569', fontSize: 10 }} axisLine={false} tickLine={false} interval="preserveStartEnd" />
-//                     <YAxis tick={{ fill: '#475569', fontSize: 11 }} axisLine={false} tickLine={false} width={45} domain={['dataMin - 50', 'dataMax + 50']} />
+//                     <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" vertical={false} />
+//                     <XAxis dataKey="date" tick={{ fill: 'var(--text-muted)', fontSize: 10 }} axisLine={false} tickLine={false} interval="preserveStartEnd" />
+//                     <YAxis tick={{ fill: 'var(--text-muted)', fontSize: 11 }} axisLine={false} tickLine={false} width={45} domain={['dataMin - 50', 'dataMax + 50']} />
 //                     <Tooltip content={<ChartTooltip />} />
 //                     <Line type="monotone" dataKey={label1} stroke="#3b82f6" strokeWidth={2.5} dot={false} connectNulls />
 //                     <Line type="monotone" dataKey={label2} stroke="#f59e0b" strokeWidth={2.5} dot={false} connectNulls />
 //                   </LineChart>
 //                 </ResponsiveContainer>
 //                 <div className="flex gap-5 mt-3">
-//                   <div className="flex items-center gap-1.5"><div className="w-3 h-0.5 bg-blue-500 rounded" /><span className="text-slate-400 text-xs">{label1}</span></div>
-//                   <div className="flex items-center gap-1.5"><div className="w-3 h-0.5 bg-amber-500 rounded" /><span className="text-slate-400 text-xs">{label2}</span></div>
+//                   <div className="flex items-center gap-1.5"><div className="w-3 h-0.5 bg-blue-500 rounded" /><span className="text-xs" style={{color:"var(--text-muted)"}}>{label1}</span></div>
+//                   <div className="flex items-center gap-1.5"><div className="w-3 h-0.5 bg-amber-500 rounded" /><span className="text-xs" style={{color:"var(--text-muted)"}}>{label2}</span></div>
 //                 </div>
 //               </Card>
 //             )}
@@ -1503,8 +1503,8 @@
 //                 <SectionHeader title="Topic Skill Radar" sub="CF tag distribution comparison" />
 //                 <ResponsiveContainer width="100%" height={210}>
 //                   <RadarChart data={radarData} cx="50%" cy="50%" outerRadius="70%">
-//                     <PolarGrid stroke="#1e2d45" />
-//                     <PolarAngleAxis dataKey="skill" tick={{ fill: '#64748b', fontSize: 9 }} />
+//                     <PolarGrid stroke="var(--border)" />
+//                     <PolarAngleAxis dataKey="skill" tick={{ fill: 'var(--text-muted)', fontSize: 9 }} />
 //                     <Radar dataKey={label1} stroke="#3b82f6" fill="#3b82f6" fillOpacity={0.2} strokeWidth={2} />
 //                     <Radar dataKey={label2} stroke="#f59e0b" fill="#f59e0b" fillOpacity={0.15} strokeWidth={2} />
 //                   </RadarChart>
@@ -1602,8 +1602,8 @@
 //       {goals.length === 0 ? (
 //         <div className="card-p text-center py-14">
 //           <Target size={40} className="text-slate-600 mx-auto mb-3" />
-//           <h3 className="text-white font-bold mb-1">No goals yet</h3>
-//           <p className="text-slate-500 text-sm">Add a goal to track your progress!</p>
+//           <h3 className="font-bold mb-1" style={{color:"var(--text-primary)"}}>No goals yet</h3>
+//           <p className="text-sm" style={{color:"var(--text-muted)"}}>Add a goal to track your progress!</p>
 //         </div>
 //       ) : (
 //         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -1614,7 +1614,7 @@
 //               <div key={g.id} className={`card-p transition-all ${g.achieved ? 'opacity-60' : 'hover:border-white/[0.15]'}`}
 //                 style={{ borderColor: `${g.color}25` }}>
 //                 <div className="flex justify-between items-start mb-3">
-//                   <h3 className="text-white font-bold text-sm leading-tight pr-2 flex-1">{g.title}</h3>
+//                   <h3 className="font-bold text-sm leading-tight pr-2 flex-1" style={{color:"var(--text-primary)"}}>{g.title}</h3>
 //                   <div className="flex gap-1 shrink-0">
 //                     <button onClick={() => toggleAchieved(g)}
 //                       className={`p-1.5 rounded-lg transition-colors ${g.achieved ? 'text-green-400' : 'text-slate-500 hover:text-green-400'}`}>
@@ -1626,8 +1626,8 @@
 //                   </div>
 //                 </div>
 //                 <div className="flex justify-between mb-2">
-//                   <span className="font-mono font-black text-2xl text-white">{g.current.toLocaleString()}</span>
-//                   <span className="text-slate-500 text-sm self-end font-mono">/ {g.target.toLocaleString()}</span>
+//                   <span className="font-mono font-black text-2xl" style={{color:"var(--text-primary)"}}>{g.current.toLocaleString()}</span>
+//                   <span className="text-sm self-end font-mono" style={{color:"var(--text-muted)"}}>/ {g.target.toLocaleString()}</span>
 //                 </div>
 //                 <div className="h-2 bg-white/[0.05] rounded-full mb-2 overflow-hidden">
 //                   <div className="h-full rounded-full transition-all" style={{ width: `${pct}%`, backgroundColor: g.color }} />
@@ -1711,10 +1711,10 @@
 //   return (
 //     <div className="flex-1 flex flex-col lg:flex-row h-[calc(100vh-3.5rem)] lg:h-screen overflow-hidden">
 //       {/* List sidebar */}
-//       <div className="w-full lg:w-72 shrink-0 border-b lg:border-b-0 lg:border-r border-white/[0.06] flex flex-col bg-[#0a1628]">
+//       <div className="w-full lg:w-72 shrink-0 border-b lg:border-b-0 lg:border-r border-white/[0.06] flex flex-col ">
 //         <div className="p-4 border-b border-white/[0.06]">
 //           <div className="flex items-center justify-between mb-3">
-//             <h1 className="font-bold text-white flex items-center gap-2 text-sm"><BookMarked size={15} />Notes ({notes.length})</h1>
+//             <h1 className="font-boldflex items-center gap-2 text-sm" style={{color:"var(--text-primary)"}}><BookMarked size={15} />Notes ({notes.length})</h1>
 //             <button onClick={() => { setNewNote(true); setEditing(false); setSel(null) }}
 //               className="btn-primary text-xs py-1.5 px-3"><Plus size={11} />New</button>
 //           </div>
@@ -1733,10 +1733,10 @@
 //             <button key={n.id} onClick={() => { setSel(n); setNewNote(false); setEditing(false) }}
 //               className={`w-full text-left p-3 rounded-xl transition-all ${sel?.id === n.id ? 'bg-blue-500/15 border border-blue-500/25' : 'hover:bg-white/[0.04] border border-transparent'}`}>
 //               <div className="flex justify-between mb-1">
-//                 <span className="text-white font-semibold text-sm truncate">{n.title}</span>
+//                 <span className="font-semibold text-sm truncate" style={{color:"var(--text-primary)"}}>{n.title}</span>
 //                 {n.bookmarked && <Star size={11} className="text-amber-400 shrink-0 ml-1" fill="currentColor" />}
 //               </div>
-//               <p className="text-slate-500 text-xs truncate">{n.content.slice(0, 55)}{n.content.length > 55 ? '…' : ''}</p>
+//               <p className="text-xs truncate" style={{color:"var(--text-muted)"}}>{n.content.slice(0, 55)}{n.content.length > 55 ? '…' : ''}</p>
 //               <div className="flex items-center gap-2 mt-1.5">
 //                 <span className={`badge text-[10px] ${badgeClass(n.platform)}`} style={{ fontSize: '10px', padding: '1px 6px' }}>{n.platform}</span>
 //                 <span className="text-slate-600 text-[10px] font-mono">{n.created_at?.slice(0, 10)}</span>
@@ -1750,7 +1750,7 @@
 //       <div className="flex-1 overflow-y-auto p-5 lg:p-8">
 //         {(newNote || editing) ? (
 //           <div className="max-w-2xl animate-fade-in">
-//             <h2 className="text-white font-bold text-lg mb-5">{editing ? 'Edit Note' : 'New Note'}</h2>
+//             <h2 className="font-bold text-lg mb-5" style={{color:"var(--text-primary)"}}>{editing ? 'Edit Note' : 'New Note'}</h2>
 //             <div className="space-y-4">
 //               <input value={form.title} onChange={e => setForm(f => ({ ...f, title: e.target.value }))} placeholder="Title…" className="input text-base font-semibold" />
 //               <div className="flex gap-3">
@@ -1772,11 +1772,11 @@
 //           <div className="max-w-2xl animate-fade-in">
 //             <div className="flex items-start justify-between mb-5">
 //               <div className="flex-1 pr-4">
-//                 <h2 className="text-white font-black text-xl mb-2">{sel.title}</h2>
+//                 <h2 className="font-black text-xl mb-2" style={{color:"var(--text-primary)"}}>{sel.title}</h2>
 //                 <div className="flex flex-wrap gap-2">
 //                   <span className={`badge text-xs ${badgeClass(sel.platform)}`}>{sel.platform}</span>
 //                   {sel.tags.map(t => <span key={t} className="tag">{t}</span>)}
-//                   <span className="flex items-center gap-1 text-slate-500 text-xs"><Clock size={9} />{sel.created_at?.slice(0, 10)}</span>
+//                   <span className="flex items-center gap-1text-xs" style={{color:"var(--text-muted)"}}><Clock size={9} />{sel.created_at?.slice(0, 10)}</span>
 //                   {sel.url && <a href={sel.url} target="_blank" rel="noreferrer" className="flex items-center gap-1 text-blue-400 text-xs hover:underline"><Link size={9} />Problem</a>}
 //                 </div>
 //               </div>
@@ -1795,8 +1795,8 @@
 //         ) : (
 //           <div className="flex flex-col items-center justify-center h-full text-center">
 //             <BookMarked size={40} className="text-slate-700 mb-4" />
-//             <h3 className="text-white font-bold text-lg mb-2">Select a note</h3>
-//             <p className="text-slate-500 text-sm max-w-xs">Notes save to Supabase — they persist across sessions.</p>
+//             <h3 className="font-bold text-lg mb-2" style={{color:"var(--text-primary)"}}>Select a note</h3>
+//             <p className="text-sm max-w-xs" style={{color:"var(--text-muted)"}}>Notes save to Supabase — they persist across sessions.</p>
 //           </div>
 //         )}
 //       </div>
@@ -1893,7 +1893,7 @@ export function AnalyticsPage() {
                 <div key={s.topic} className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     <div className="w-1.5 h-1.5 rounded-full bg-green-400" />
-                    <span className="text-slate-300 text-sm capitalize">{s.topic}</span>
+                    <span className="text-sm capitalize" style={{color:"var(--text-second)"}}>{s.topic}</span>
                   </div>
                   <span className="text-green-400 font-mono font-bold text-sm">{s.count}</span>
                 </div>
@@ -1907,7 +1907,7 @@ export function AnalyticsPage() {
                 <div key={s.topic} className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     <div className="w-1.5 h-1.5 rounded-full bg-red-400" />
-                    <span className="text-slate-300 text-sm capitalize">{s.topic}</span>
+                    <span className="text-sm capitalize" style={{color:"var(--text-second)"}}>{s.topic}</span>
                   </div>
                   <span className="text-red-400 font-mono font-bold text-sm">{s.count}</span>
                 </div>
@@ -1924,15 +1924,15 @@ export function AnalyticsPage() {
             <SectionHeader title="Skill Radar" sub="CF vs LC topic mastery (real data)" />
             <ResponsiveContainer width="100%" height={260}>
               <RadarChart data={radarData} cx="50%" cy="50%" outerRadius="70%">
-                <PolarGrid stroke="#1e2d45" />
-                <PolarAngleAxis dataKey="skill" tick={{ fill: '#64748b', fontSize: 9 }} />
+                <PolarGrid stroke="var(--border)" />
+                <PolarAngleAxis dataKey="skill" tick={{ fill: 'var(--text-muted)', fontSize: 9 }} />
                 <Radar dataKey="CF" stroke="#3b82f6" fill="#3b82f6" fillOpacity={0.2} strokeWidth={2} name="CF" />
                 <Radar dataKey="LC" stroke="#f59e0b" fill="#f59e0b" fillOpacity={0.15} strokeWidth={2} name="LC" />
               </RadarChart>
             </ResponsiveContainer>
             <div className="flex gap-5 mt-2">
-              <div className="flex items-center gap-1.5"><div className="w-3 h-0.5 bg-blue-500 rounded" /><span className="text-slate-400 text-xs">Codeforces</span></div>
-              <div className="flex items-center gap-1.5"><div className="w-3 h-0.5 bg-amber-500 rounded" /><span className="text-slate-400 text-xs">LeetCode</span></div>
+              <div className="flex items-center gap-1.5"><div className="w-3 h-0.5 bg-blue-500 rounded" /><span className="text-xs" style={{color:"var(--text-muted)"}}>Codeforces</span></div>
+              <div className="flex items-center gap-1.5"><div className="w-3 h-0.5 bg-amber-500 rounded" /><span className="text-xs" style={{color:"var(--text-muted)"}}>LeetCode</span></div>
             </div>
           </Card>
         ) : (
@@ -1944,9 +1944,9 @@ export function AnalyticsPage() {
             <SectionHeader title="CF Difficulty Distribution" sub="Problems solved by rating range" />
             <ResponsiveContainer width="100%" height={260}>
               <BarChart data={diffChart} margin={{ left: 0, right: 10 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#1e2d45" vertical={false} />
-                <XAxis dataKey="range" tick={{ fill: '#475569', fontSize: 10 }} axisLine={false} tickLine={false} />
-                <YAxis tick={{ fill: '#475569', fontSize: 10 }} axisLine={false} tickLine={false} width={35} />
+                <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" vertical={false} />
+                <XAxis dataKey="range" tick={{ fill: 'var(--text-muted)', fontSize: 10 }} axisLine={false} tickLine={false} />
+                <YAxis tick={{ fill: 'var(--text-muted)', fontSize: 10 }} axisLine={false} tickLine={false} width={35} />
                 <Tooltip content={<ChartTooltip />} />
                 <Bar dataKey="count" name="Solved" radius={[4, 4, 0, 0]} fill="#3b82f6" />
               </BarChart>
@@ -1972,12 +1972,12 @@ export function AnalyticsPage() {
                 <div key={d.label} className="bg-white/[0.03] border border-white/[0.07] rounded-xl p-4">
                   <div className="flex items-center justify-between mb-2">
                     <span className="font-semibold text-sm" style={{ color: d.color }}>{d.label}</span>
-                    <span className="text-white font-mono font-bold">{d.solved.toLocaleString()}</span>
+                    <span className="font-mono font-bold" style={{color:"var(--text-primary)"}}>{d.solved.toLocaleString()}</span>
                   </div>
                   <div className="h-1.5 bg-white/[0.06] rounded-full overflow-hidden">
                     <div className="h-full rounded-full" style={{ width: `${pct}%`, backgroundColor: d.color }} />
                   </div>
-                  <p className="text-slate-500 text-xs mt-1">{pct}% of {d.total}</p>
+                  <p className="text-xs mt-1" style={{color:"var(--text-muted)"}}>{pct}% of {d.total}</p>
                 </div>
               )
             })}
@@ -2072,27 +2072,27 @@ export function AICoachPage() {
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
           {cfData && <div className="card-p bg-blue-500/5 border-blue-500/20 py-3">
             <p className="label mb-1">CF Data Ready</p>
-            <p className="text-white font-mono font-bold">{cfData.handle} · {cfData.rating}</p>
-            <p className="text-slate-500 text-xs">{cfData.totalSolved} solved · {Object.keys(cfData.tagDistribution).length} topics</p>
+            <p className="font-mono font-bold" style={{color:"var(--text-primary)"}}>{cfData.handle} · {cfData.rating}</p>
+            <p className="text-xs" style={{color:"var(--text-muted)"}}>{cfData.totalSolved} solved · {Object.keys(cfData.tagDistribution).length} topics</p>
           </div>}
           {lcData && <div className="card-p bg-amber-500/5 border-amber-500/20 py-3">
             <p className="label mb-1">LC Data Ready</p>
-            <p className="text-white font-mono font-bold">{lcData.handle} · {lcData.contestRating}</p>
-            <p className="text-slate-500 text-xs">{lcData.totalSolved} solved · E{lcData.easySolved}/M{lcData.mediumSolved}/H{lcData.hardSolved}</p>
+            <p className="font-mono font-bold" style={{color:"var(--text-primary)"}}>{lcData.handle} · {lcData.contestRating}</p>
+            <p className="text-xs" style={{color:"var(--text-muted)"}}>{lcData.totalSolved} solved · E{lcData.easySolved}/M{lcData.mediumSolved}/H{lcData.hardSolved}</p>
           </div>}
           {cfData && Object.keys(cfData.tagDistribution).length > 0 && (
             <div className="card-p py-3">
               <p className="label mb-1">Weakest CF Topic</p>
-              <p className="text-white font-semibold capitalize">
+              <p className="font-semibold capitalize" style={{color:"var(--text-primary)"}}>
                 {Object.entries(cfData.tagDistribution).sort(([, a], [, b]) => a - b)[0]?.[0] ?? 'N/A'}
               </p>
-              <p className="text-slate-500 text-xs">Least practiced area</p>
+              <p className="text-xs" style={{color:"var(--text-muted)"}}>Least practiced area</p>
             </div>
           )}
           {genTime && <div className="card-p py-3">
             <p className="label mb-1">Last Generated</p>
-            <p className="text-white text-xs">{genTime}</p>
-            <p className="text-slate-500 text-xs">From your real stats</p>
+            <p className="text-xs" style={{color:"var(--text-primary)"}}>{genTime}</p>
+            <p className="text-xs" style={{color:"var(--text-muted)"}}>From your real stats</p>
           </div>}
         </div>
       )}
@@ -2115,8 +2115,8 @@ export function AICoachPage() {
       {!result && !loading && !error && (
         <div className="card-p text-center py-14 border-blue-500/20 bg-blue-500/5">
           <Bot size={48} className="text-slate-600 mx-auto mb-4" />
-          <h3 className="text-white font-bold text-lg mb-2">Generate Your Personalized Plan</h3>
-          <p className="text-slate-400 text-sm mb-6 max-w-md mx-auto">
+          <h3 className="font-bold text-lg mb-2" style={{color:"var(--text-primary)"}}>Generate Your Personalized Plan</h3>
+          <p className="text-sm mb-6 max-w-md mx-auto" style={{color:"var(--text-muted)"}}>
             The AI will analyze your actual Codeforces and LeetCode stats — rating, solved counts, weak topics, recent contests — and build a targeted improvement plan just for you.
           </p>
           <button onClick={generate} disabled={loading} className="btn-primary">
@@ -2131,7 +2131,7 @@ export function AICoachPage() {
           {result.weak_topic_analysis && (
             <Card className="border-red-500/20 bg-red-500/5">
               <SectionHeader title="🎯 AI Analysis of Your Data" />
-              <p className="text-slate-300 text-sm leading-relaxed">{result.weak_topic_analysis}</p>
+              <p className="text-sm leading-relaxed" style={{color:"var(--text-second)"}}>{result.weak_topic_analysis}</p>
             </Card>
           )}
 
@@ -2146,9 +2146,9 @@ export function AICoachPage() {
                       {i + 1}
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="text-white font-semibold text-sm truncate">{p.problem_name}</p>
+                      <p className="font-semibold text-sm truncate" style={{color:"var(--text-primary)"}}>{p.problem_name}</p>
                       <div className="flex items-center gap-2 mt-0.5">
-                        <span className="text-xs bg-white/[0.05] border border-white/[0.08] text-slate-400 px-2 py-0.5 rounded-md capitalize">{p.focus_tag}</span>
+                        <span className="text-xs bg-white/[0.05] border border-white/[0.08]px-2 py-0.5 rounded-md capitalize" style={{color:"var(--text-muted)"}}>{p.focus_tag}</span>
                         <span className={`text-xs font-bold font-mono ${diffColor[p.estimated_difficulty] ?? 'text-slate-400'}`}>{p.estimated_difficulty}</span>
                       </div>
                     </div>
@@ -2173,10 +2173,10 @@ export function AICoachPage() {
                 {result.weekly_roadmap.map(d => (
                   <div key={d.day} className="bg-white/[0.03] border border-white/[0.07] rounded-xl p-4 hover:border-blue-500/20 hover:bg-blue-500/5 transition-all">
                     <div className="flex items-center justify-between mb-2">
-                      <span className="text-[11px] font-semibold text-slate-500 uppercase tracking-widest">Day {d.day}</span>
+                      <span className="text-[11px] font-semibolduppercase tracking-widest" style={{color:"var(--text-muted)"}}>Day {d.day}</span>
                     </div>
-                    <p className="text-white font-bold text-sm mb-1.5">{d.topic}</p>
-                    <p className="text-slate-500 text-xs leading-relaxed">{d.resource_focus}</p>
+                    <p className="font-bold text-sm mb-1.5" style={{color:"var(--text-primary)"}}>{d.topic}</p>
+                    <p className="text-xs leading-relaxed" style={{color:"var(--text-muted)"}}>{d.resource_focus}</p>
                   </div>
                 ))}
               </div>
@@ -2392,31 +2392,31 @@ export function ComparePage() {
                   {item.p === 'CF' && (item.d as CFData) ? (
                     <>
                       <div className="bg-white/[0.04] border border-white/[0.07] rounded-lg p-2">
-                        <p className="font-mono font-bold text-white">{(item.d as CFData).rating}</p>
-                        <p className="text-slate-500 text-xs">Rating</p>
+                        <p className="font-mono font-bold" style={{color:"var(--text-primary)"}}>{(item.d as CFData).rating}</p>
+                        <p className="text-xs" style={{color:"var(--text-muted)"}}>Rating</p>
                       </div>
                       <div className="bg-white/[0.04] border border-white/[0.07] rounded-lg p-2">
-                        <p className="font-mono font-bold text-white">{(item.d as CFData).totalSolved}</p>
-                        <p className="text-slate-500 text-xs">Solved</p>
+                        <p className="font-mono font-bold" style={{color:"var(--text-primary)"}}>{(item.d as CFData).totalSolved}</p>
+                        <p className="text-xs" style={{color:"var(--text-muted)"}}>Solved</p>
                       </div>
                       <div className="bg-white/[0.04] border border-white/[0.07] rounded-lg p-2">
-                        <p className="font-mono font-bold text-white">{(item.d as CFData).maxRating}</p>
-                        <p className="text-slate-500 text-xs">Max</p>
+                        <p className="font-mono font-bold" style={{color:"var(--text-primary)"}}>{(item.d as CFData).maxRating}</p>
+                        <p className="text-xs" style={{color:"var(--text-muted)"}}>Max</p>
                       </div>
                     </>
                   ) : item.p === 'LC' && (item.d as LCData) ? (
                     <>
                       <div className="bg-white/[0.04] border border-white/[0.07] rounded-lg p-2">
-                        <p className="font-mono font-bold text-white">{(item.d as LCData).contestRating}</p>
-                        <p className="text-slate-500 text-xs">Rating</p>
+                        <p className="font-mono font-bold" style={{color:"var(--text-primary)"}}>{(item.d as LCData).contestRating}</p>
+                        <p className="text-xs" style={{color:"var(--text-muted)"}}>Rating</p>
                       </div>
                       <div className="bg-white/[0.04] border border-white/[0.07] rounded-lg p-2">
-                        <p className="font-mono font-bold text-white">{(item.d as LCData).totalSolved}</p>
-                        <p className="text-slate-500 text-xs">Solved</p>
+                        <p className="font-mono font-bold" style={{color:"var(--text-primary)"}}>{(item.d as LCData).totalSolved}</p>
+                        <p className="text-xs" style={{color:"var(--text-muted)"}}>Solved</p>
                       </div>
                       <div className="bg-white/[0.04] border border-white/[0.07] rounded-lg p-2">
-                        <p className="font-mono font-bold text-white">#{(item.d as LCData).globalRanking?.toLocaleString()}</p>
-                        <p className="text-slate-500 text-xs">Rank</p>
+                        <p className="font-mono font-bold" style={{color:"var(--text-primary)"}}>#{(item.d as LCData).globalRanking?.toLocaleString()}</p>
+                        <p className="text-xs" style={{color:"var(--text-muted)"}}>Rank</p>
                       </div>
                     </>
                   ) : <div className="col-span-3 text-slate-500 text-sm">No data</div>}
@@ -2440,7 +2440,7 @@ export function ComparePage() {
                   <div key={f.label}>
                     <div className="flex justify-between mb-2 text-sm">
                       <span className={`font-mono font-bold ${w === 'p1' ? 'text-blue-400' : 'text-slate-400'}`}>{v1.toLocaleString()}</span>
-                      <span className="text-slate-400 font-medium text-xs uppercase tracking-wider">{f.label}</span>
+                      <span className="font-medium text-xs uppercase tracking-wider" style={{color:"var(--text-muted)"}}>{f.label}</span>
                       <span className={`font-mono font-bold ${w === 'p2' ? 'text-amber-400' : 'text-slate-400'}`}>{v2.toLocaleString()}</span>
                     </div>
                     <div className="flex gap-1.5 h-2.5">
@@ -2460,12 +2460,12 @@ export function ComparePage() {
             <div className="mt-5 pt-4 border-t border-white/[0.06] flex items-center justify-center gap-3">
               <div className="text-center">
                 <p className="text-blue-400 font-mono font-bold text-lg">{p1wins}</p>
-                <p className="text-slate-500 text-xs">{label1} wins</p>
+                <p className="text-xs" style={{color:"var(--text-muted)"}}>{label1} wins</p>
               </div>
               <div className="text-slate-600 font-bold">vs</div>
               <div className="text-center">
                 <p className="text-amber-400 font-mono font-bold text-lg">{p2wins}</p>
-                <p className="text-slate-500 text-xs">{label2} wins</p>
+                <p className="text-xs" style={{color:"var(--text-muted)"}}>{label2} wins</p>
               </div>
             </div>
           </Card>
@@ -2477,17 +2477,17 @@ export function ComparePage() {
                 <SectionHeader title="Rating History" sub="Progression over time" />
                 <ResponsiveContainer width="100%" height={210}>
                   <LineChart data={ratingChart}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="#1e2d45" vertical={false} />
-                    <XAxis dataKey="date" tick={{ fill: '#475569', fontSize: 10 }} axisLine={false} tickLine={false} interval="preserveStartEnd" />
-                    <YAxis tick={{ fill: '#475569', fontSize: 11 }} axisLine={false} tickLine={false} width={45} domain={['dataMin - 50', 'dataMax + 50']} />
+                    <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" vertical={false} />
+                    <XAxis dataKey="date" tick={{ fill: 'var(--text-muted)', fontSize: 10 }} axisLine={false} tickLine={false} interval="preserveStartEnd" />
+                    <YAxis tick={{ fill: 'var(--text-muted)', fontSize: 11 }} axisLine={false} tickLine={false} width={45} domain={['dataMin - 50', 'dataMax + 50']} />
                     <Tooltip content={<ChartTooltip />} />
                     <Line type="monotone" dataKey={label1} stroke="#3b82f6" strokeWidth={2.5} dot={false} connectNulls />
                     <Line type="monotone" dataKey={label2} stroke="#f59e0b" strokeWidth={2.5} dot={false} connectNulls />
                   </LineChart>
                 </ResponsiveContainer>
                 <div className="flex gap-5 mt-3">
-                  <div className="flex items-center gap-1.5"><div className="w-3 h-0.5 bg-blue-500 rounded" /><span className="text-slate-400 text-xs">{label1}</span></div>
-                  <div className="flex items-center gap-1.5"><div className="w-3 h-0.5 bg-amber-500 rounded" /><span className="text-slate-400 text-xs">{label2}</span></div>
+                  <div className="flex items-center gap-1.5"><div className="w-3 h-0.5 bg-blue-500 rounded" /><span className="text-xs" style={{color:"var(--text-muted)"}}>{label1}</span></div>
+                  <div className="flex items-center gap-1.5"><div className="w-3 h-0.5 bg-amber-500 rounded" /><span className="text-xs" style={{color:"var(--text-muted)"}}>{label2}</span></div>
                 </div>
               </Card>
             )}
@@ -2496,8 +2496,8 @@ export function ComparePage() {
                 <SectionHeader title="Topic Skill Radar" sub="CF tag distribution comparison" />
                 <ResponsiveContainer width="100%" height={210}>
                   <RadarChart data={radarData} cx="50%" cy="50%" outerRadius="70%">
-                    <PolarGrid stroke="#1e2d45" />
-                    <PolarAngleAxis dataKey="skill" tick={{ fill: '#64748b', fontSize: 9 }} />
+                    <PolarGrid stroke="var(--border)" />
+                    <PolarAngleAxis dataKey="skill" tick={{ fill: 'var(--text-muted)', fontSize: 9 }} />
                     <Radar dataKey={label1} stroke="#3b82f6" fill="#3b82f6" fillOpacity={0.2} strokeWidth={2} />
                     <Radar dataKey={label2} stroke="#f59e0b" fill="#f59e0b" fillOpacity={0.15} strokeWidth={2} />
                   </RadarChart>
@@ -2513,6 +2513,9 @@ export function ComparePage() {
 
 // ═══════════════════════════════════════════════════════════════════════════
 // GOALS PAGE
+// ═══════════════════════════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════════════════════════════════
+// GOALS PAGE — Enhanced Professional UI
 // ═══════════════════════════════════════════════════════════════════════════
 export function GoalsPage() {
   const { user } = useAuth()
@@ -2547,91 +2550,204 @@ export function GoalsPage() {
 
   if (loading) return (
     <div className="flex-1 p-5 lg:p-8 space-y-4">
-      {[...Array(3)].map((_, i) => <div key={i} className="skeleton h-32 rounded-2xl" />)}
+      {[...Array(3)].map((_, i) => <div key={i} className="skeleton h-40 rounded-2xl" />)}
     </div>
   )
 
   const COLORS = ['#3b82f6', '#f59e0b', '#10b981', '#a855f7', '#f43f5e', '#06b6d4']
+  const achieved = goals.filter(g => g.achieved).length
+  const inProgress = goals.filter(g => !g.achieved).length
+  const overallPct = goals.length > 0
+    ? Math.round(goals.reduce((s, g) => s + (g.target > 0 ? Math.min(100, g.current / g.target * 100) : 0), 0) / goals.length)
+    : 0
 
   return (
     <div className="flex-1 p-5 lg:p-8 space-y-6 animate-fade-in">
+      {/* Header */}
       <div className="flex items-start justify-between">
-        <PageHeader title="Goal Tracker" sub="Set targets — saved to your database" icon={<Target size={20} />} />
+        <PageHeader title="Goal Tracker" sub="Set milestones, track your competitive programming journey" icon={<Target size={20} />} />
         <button onClick={() => setShowForm(v => !v)} className="btn-primary text-sm py-2 mt-1">
-          <Plus size={14} /> New Goal
+          <Plus size={14} /> {showForm ? 'Cancel' : 'New Goal'}
         </button>
       </div>
 
+      {/* Summary stats */}
+      {goals.length > 0 && (
+        <div className="grid grid-cols-3 gap-4">
+          {[
+            { label: 'Total Goals', value: goals.length, color: '#3b82f6', icon: '🎯' },
+            { label: 'Achieved', value: achieved, color: '#10b981', icon: '✅' },
+            { label: 'In Progress', value: inProgress, color: '#f59e0b', icon: '⚡' },
+          ].map(s => (
+            <div key={s.label} className="card p-4 flex items-center gap-4">
+              <div className="text-2xl">{s.icon}</div>
+              <div>
+                <p className="label">{s.label}</p>
+                <p className="text-2xl font-black font-mono" style={{ color: s.color }}>{s.value}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* Add goal form */}
       {showForm && (
-        <Card className="border-blue-500/20 animate-fade-in">
-          <SectionHeader title="Add New Goal" />
-          <div className="grid sm:grid-cols-2 gap-4">
-            <div><label className="label block mb-1.5">Title</label>
-              <input value={form.title} onChange={e => setForm(f => ({ ...f, title: e.target.value }))} className="input" placeholder="e.g. Reach CF Expert" /></div>
-            <div><label className="label block mb-1.5">Platform</label>
-              <select value={form.platform} onChange={e => setForm(f => ({ ...f, platform: e.target.value as Goal['platform'] }))} className="input">
-                <option value="CF">Codeforces</option><option value="LC">LeetCode</option><option value="BOTH">Both</option>
-              </select></div>
-            <div><label className="label block mb-1.5">Target Value</label>
-              <input type="number" value={form.target} onChange={e => setForm(f => ({ ...f, target: +e.target.value }))} className="input font-mono" /></div>
-            <div><label className="label block mb-1.5">Current Value</label>
-              <input type="number" value={form.current} onChange={e => setForm(f => ({ ...f, current: +e.target.value }))} className="input font-mono" /></div>
-            <div><label className="label block mb-1.5">Deadline</label>
-              <input type="date" value={form.deadline} onChange={e => setForm(f => ({ ...f, deadline: e.target.value }))} className="input" /></div>
-            <div><label className="label block mb-1.5">Colour</label>
-              <div className="flex gap-2 pt-1">{COLORS.map(c => (
-                <button key={c} onClick={() => setForm(f => ({ ...f, color: c }))}
-                  className="w-8 h-8 rounded-lg border-2 transition-all"
-                  style={{ backgroundColor: c, borderColor: form.color === c ? 'white' : 'transparent' }} />
-              ))}</div></div>
+        <div className="card p-6 animate-slide-down" style={{ borderColor: 'rgba(59,130,246,0.25)', borderWidth: '1.5px' }}>
+          <div className="flex items-center gap-3 mb-5">
+            <div className="w-8 h-8 rounded-xl flex items-center justify-center" style={{ background: 'rgba(59,130,246,0.12)' }}>
+              <Plus size={16} style={{ color: '#60a5fa' }} />
+            </div>
+            <h3 className="font-bold text-base" style={{ color: 'var(--text-primary)' }}>Add New Goal</h3>
           </div>
-          <div className="flex gap-3 mt-4">
+          <div className="grid sm:grid-cols-2 gap-4">
+            <div className="sm:col-span-2">
+              <label className="label block mb-1.5">Goal Title</label>
+              <input value={form.title} onChange={e => setForm(f => ({ ...f, title: e.target.value }))}
+                onKeyDown={e => e.key === 'Enter' && addGoal()}
+                className="input" placeholder="e.g. Reach Codeforces Expert (1600+)" />
+            </div>
+            <div>
+              <label className="label block mb-1.5">Platform</label>
+              <select value={form.platform} onChange={e => setForm(f => ({ ...f, platform: e.target.value as Goal['platform'] }))} className="input">
+                <option value="CF">Codeforces</option>
+                <option value="LC">LeetCode</option>
+                <option value="BOTH">Both Platforms</option>
+              </select>
+            </div>
+            <div>
+              <label className="label block mb-1.5">Deadline (optional)</label>
+              <input type="date" value={form.deadline} onChange={e => setForm(f => ({ ...f, deadline: e.target.value }))} className="input" />
+            </div>
+            <div>
+              <label className="label block mb-1.5">Current Value</label>
+              <input type="number" value={form.current} onChange={e => setForm(f => ({ ...f, current: +e.target.value }))} className="input font-mono" />
+            </div>
+            <div>
+              <label className="label block mb-1.5">Target Value</label>
+              <input type="number" value={form.target} onChange={e => setForm(f => ({ ...f, target: +e.target.value }))} className="input font-mono" />
+            </div>
+            <div className="sm:col-span-2">
+              <label className="label block mb-2">Color</label>
+              <div className="flex gap-2.5">
+                {COLORS.map(c => (
+                  <button key={c} onClick={() => setForm(f => ({ ...f, color: c }))}
+                    className="w-9 h-9 rounded-xl transition-all"
+                    style={{
+                      backgroundColor: c,
+                      border: form.color === c ? '3px solid white' : '3px solid transparent',
+                      boxShadow: form.color === c ? `0 0 0 2px ${c}` : 'none',
+                      transform: form.color === c ? 'scale(1.12)' : 'scale(1)'
+                    }} />
+                ))}
+              </div>
+            </div>
+          </div>
+          <div className="flex gap-3 mt-5">
             <button onClick={addGoal} className="btn-primary">Save Goal</button>
             <button onClick={() => setShowForm(false)} className="btn-secondary">Cancel</button>
           </div>
-        </Card>
+        </div>
       )}
 
+      {/* Empty state */}
       {goals.length === 0 ? (
-        <div className="card-p text-center py-14">
-          <Target size={40} className="text-slate-600 mx-auto mb-3" />
-          <h3 className="text-white font-bold mb-1">No goals yet</h3>
-          <p className="text-slate-500 text-sm">Add a goal to track your progress!</p>
+        <div className="card p-16 text-center">
+          <div className="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4" style={{ background: 'var(--bg-hover)' }}>
+            <Target size={28} style={{ color: 'var(--text-muted)' }} />
+          </div>
+          <h3 className="font-bold text-lg mb-2" style={{ color: 'var(--text-primary)' }}>No goals yet</h3>
+          <p className="text-sm mb-6" style={{ color: 'var(--text-muted)' }}>
+            Set your first goal to start tracking your progress towards competitive programming milestones.
+          </p>
+          <button onClick={() => setShowForm(true)} className="btn-primary">
+            <Plus size={14} /> Create Your First Goal
+          </button>
         </div>
       ) : (
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {goals.map(g => {
             const pct = g.target > 0 ? Math.min(100, Math.round(g.current / g.target * 100)) : 0
             const daysLeft = g.deadline ? Math.ceil((new Date(g.deadline).getTime() - Date.now()) / 86400000) : null
+            const isOverdue = daysLeft !== null && daysLeft < 0 && !g.achieved
+            const isNearDeadline = daysLeft !== null && daysLeft <= 7 && daysLeft >= 0 && !g.achieved
+
+            // SVG ring
+            const R = 28, C = 2 * Math.PI * R
+            const offset = C - (pct / 100) * C
+
             return (
-              <div key={g.id} className={`card-p transition-all ${g.achieved ? 'opacity-60' : 'hover:border-white/[0.15]'}`}
-                style={{ borderColor: `${g.color}25` }}>
-                <div className="flex justify-between items-start mb-3">
-                  <h3 className="text-white font-bold text-sm leading-tight pr-2 flex-1">{g.title}</h3>
-                  <div className="flex gap-1 shrink-0">
-                    <button onClick={() => toggleAchieved(g)}
-                      className={`p-1.5 rounded-lg transition-colors ${g.achieved ? 'text-green-400' : 'text-slate-500 hover:text-green-400'}`}>
-                      <CheckCircle size={14} />
-                    </button>
-                    <button onClick={() => removeGoal(g.id)} className="p-1.5 rounded-lg text-slate-500 hover:text-red-400 transition-colors">
-                      <Trash2 size={14} />
-                    </button>
+              <div key={g.id}
+                className={`goal-card transition-all ${g.achieved ? 'opacity-70' : ''}`}
+                style={{ borderColor: `${g.color}30` }}>
+                {/* Top accent bar */}
+                <div className="absolute top-0 left-0 right-0 h-0.5 rounded-t-[18px]" style={{ background: g.color, opacity: 0.7 }} />
+
+                <div className="flex justify-between items-start mb-4">
+                  <div className="flex-1 pr-2">
+                    <h3 className="font-bold text-sm leading-snug mb-1" style={{ color: 'var(--text-primary)' }}>{g.title}</h3>
+                    <div className="flex items-center gap-2">
+                      <span className={`badge text-[10px] ${g.platform === 'CF' ? 'badge-blue' : g.platform === 'LC' ? 'badge-amber' : 'badge-purple'}`}>
+                        {g.platform}
+                      </span>
+                      {g.achieved && <span className="badge badge-green text-[10px]">✓ Done</span>}
+                      {isOverdue && <span className="badge badge-red text-[10px]">Overdue</span>}
+                      {isNearDeadline && <span className="badge badge-amber text-[10px]">{daysLeft}d left</span>}
+                    </div>
+                  </div>
+                  {/* Progress ring */}
+                  <div className="relative shrink-0">
+                    <svg width="68" height="68" viewBox="0 0 68 68">
+                      <circle className="progress-ring-track" cx="34" cy="34" r={R} strokeWidth="5" />
+                      <circle
+                        className="progress-ring-fill"
+                        cx="34" cy="34" r={R}
+                        strokeWidth="5"
+                        stroke={g.color}
+                        strokeDasharray={C}
+                        strokeDashoffset={offset}
+                        transform="rotate(-90 34 34)"
+                      />
+                    </svg>
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <span className="font-black text-xs font-mono" style={{ color: g.color }}>{pct}%</span>
+                    </div>
                   </div>
                 </div>
-                <div className="flex justify-between mb-2">
-                  <span className="font-mono font-black text-2xl text-white">{g.current.toLocaleString()}</span>
-                  <span className="text-slate-500 text-sm self-end font-mono">/ {g.target.toLocaleString()}</span>
+
+                {/* Numbers */}
+                <div className="flex items-end justify-between mb-3">
+                  <div>
+                    <span className="font-black text-2xl font-mono" style={{ color: 'var(--text-primary)' }}>{g.current.toLocaleString()}</span>
+                    <span className="text-sm font-mono ml-1.5" style={{ color: 'var(--text-muted)' }}>/ {g.target.toLocaleString()}</span>
+                  </div>
+                  {daysLeft !== null && !isOverdue && !isNearDeadline && !g.achieved && (
+                    <span className="text-xs" style={{ color: 'var(--text-muted)' }}>{daysLeft}d left</span>
+                  )}
                 </div>
-                <div className="h-2 bg-white/[0.05] rounded-full mb-2 overflow-hidden">
-                  <div className="h-full rounded-full transition-all" style={{ width: `${pct}%`, backgroundColor: g.color }} />
+
+                {/* Progress bar */}
+                <div className="progress-bar mb-4">
+                  <div className="progress-fill" style={{ width: `${pct}%`, background: g.color }} />
                 </div>
-                <div className="flex justify-between text-xs text-slate-500">
-                  <span className="font-semibold" style={{ color: g.color }}>{pct}%{g.achieved ? ' ✓' : ''}</span>
-                  {daysLeft !== null && <span>{daysLeft > 0 ? `${daysLeft}d left` : 'Overdue'}</span>}
+
+                {/* Actions */}
+                <div className="flex gap-2">
+                  <button onClick={() => toggleAchieved(g)}
+                    className={`flex-1 text-xs py-2 px-3 rounded-xl font-semibold transition-all flex items-center justify-center gap-1.5 ${
+                      g.achieved
+                        ? 'bg-green-500/15 text-green-400 border border-green-500/25'
+                        : 'btn-secondary text-xs py-2'
+                    }`}>
+                    <CheckCircle size={12} /> {g.achieved ? 'Achieved!' : 'Mark Done'}
+                  </button>
+                  <button onClick={() => removeGoal(g.id)}
+                    className="p-2 rounded-xl transition-colors"
+                    style={{ color: 'var(--text-muted)' }}
+                    onMouseEnter={e => (e.currentTarget.style.color = '#f87171')}
+                    onMouseLeave={e => (e.currentTarget.style.color = 'var(--text-muted)')}>
+                    <Trash2 size={14} />
+                  </button>
                 </div>
-                <span className={`badge text-[10px] mt-2 ${g.platform === 'CF' ? 'badge-blue' : g.platform === 'LC' ? 'badge-amber' : 'badge-purple'}`}>
-                  {g.platform}
-                </span>
               </div>
             )
           })}
@@ -2642,13 +2758,14 @@ export function GoalsPage() {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
-// NOTES PAGE
+// NOTES PAGE — Enhanced Professional UI
 // ═══════════════════════════════════════════════════════════════════════════
 export function NotesPage() {
   const { user } = useAuth()
   const [notes, setNotes] = useState<Note[]>([])
   const [sel, setSel] = useState<Note | null>(null)
   const [filter, setFilter] = useState<'all' | 'bookmarked'>('all')
+  const [search, setSearch] = useState('')
   const [loading, setLoading] = useState(true)
   const [newNote, setNewNote] = useState(false)
   const [editing, setEditing] = useState(false)
@@ -2659,7 +2776,9 @@ export function NotesPage() {
     getNotes(user.id).then(n => { setNotes(n); setLoading(false) })
   }, [user])
 
-  const filtered = filter === 'all' ? notes : notes.filter(n => n.bookmarked)
+  const filtered = notes
+    .filter(n => filter === 'all' || n.bookmarked)
+    .filter(n => !search || n.title.toLowerCase().includes(search.toLowerCase()) || n.content.toLowerCase().includes(search.toLowerCase()))
 
   const saveNew = async () => {
     if (!form.title || !user) return
@@ -2703,93 +2822,184 @@ export function NotesPage() {
 
   return (
     <div className="flex-1 flex flex-col lg:flex-row h-[calc(100vh-3.5rem)] lg:h-screen overflow-hidden">
-      {/* List sidebar */}
-      <div className="w-full lg:w-72 shrink-0 border-b lg:border-b-0 lg:border-r border-white/[0.06] flex flex-col bg-[#0a1628]">
-        <div className="p-4 border-b border-white/[0.06]">
+      {/* ── Left sidebar ── */}
+      <div className="w-full lg:w-72 shrink-0 flex flex-col"
+        style={{ background: 'var(--sidebar-bg)', borderRight: '1px solid var(--border)' }}>
+
+        {/* Header */}
+        <div className="p-4" style={{ borderBottom: '1px solid var(--border)' }}>
           <div className="flex items-center justify-between mb-3">
-            <h1 className="font-bold text-white flex items-center gap-2 text-sm"><BookMarked size={15} />Notes ({notes.length})</h1>
+            <h2 className="font-bold text-sm flex items-center gap-2" style={{ color: 'var(--text-primary)' }}>
+              <BookMarked size={15} style={{ color: '#60a5fa' }} />
+              Notes
+              <span className="badge badge-blue text-[10px] px-1.5 py-0.5">{notes.length}</span>
+            </h2>
             <button onClick={() => { setNewNote(true); setEditing(false); setSel(null) }}
-              className="btn-primary text-xs py-1.5 px-3"><Plus size={11} />New</button>
+              className="btn-primary text-xs py-1.5 px-3">
+              <Plus size={11} /> New
+            </button>
           </div>
-          <div className="flex gap-1">
+
+          {/* Search */}
+          <div className="relative mb-3">
+            <Search size={13} className="absolute left-3 top-1/2 -translate-y-1/2" style={{ color: 'var(--text-muted)' }} />
+            <input
+              value={search}
+              onChange={e => setSearch(e.target.value)}
+              placeholder="Search notes…"
+              className="input pl-8 py-2 text-xs"
+            />
+          </div>
+
+          {/* Filter tabs */}
+          <div className="flex gap-1 p-1 rounded-xl" style={{ background: 'var(--bg-hover)' }}>
             {(['all', 'bookmarked'] as const).map(f => (
               <button key={f} onClick={() => setFilter(f)}
-                className={`flex-1 text-xs py-1.5 rounded-lg font-medium transition-all ${filter === f ? 'bg-blue-500 text-white' : 'text-slate-500 hover:bg-white/[0.05] hover:text-slate-300'}`}>
+                className="flex-1 text-xs py-1.5 rounded-lg font-semibold transition-all"
+                style={{
+                  background: filter === f ? 'var(--accent)' : 'transparent',
+                  color: filter === f ? '#fff' : 'var(--text-muted)',
+                }}>
                 {f === 'all' ? `All (${notes.length})` : `★ (${notes.filter(n => n.bookmarked).length})`}
               </button>
             ))}
           </div>
         </div>
+
+        {/* Note list */}
         <div className="flex-1 overflow-y-auto p-2 space-y-1">
-          {filtered.length === 0 && <div className="text-center py-8 text-slate-500 text-sm">{filter === 'bookmarked' ? 'No bookmarked notes' : 'No notes yet'}</div>}
+          {filtered.length === 0 && (
+            <div className="text-center py-10" style={{ color: 'var(--text-muted)' }}>
+              <BookMarked size={24} className="mx-auto mb-2 opacity-40" />
+              <p className="text-sm">{filter === 'bookmarked' ? 'No bookmarked notes' : search ? 'No results found' : 'No notes yet'}</p>
+            </div>
+          )}
           {filtered.map(n => (
             <button key={n.id} onClick={() => { setSel(n); setNewNote(false); setEditing(false) }}
-              className={`w-full text-left p-3 rounded-xl transition-all ${sel?.id === n.id ? 'bg-blue-500/15 border border-blue-500/25' : 'hover:bg-white/[0.04] border border-transparent'}`}>
-              <div className="flex justify-between mb-1">
-                <span className="text-white font-semibold text-sm truncate">{n.title}</span>
-                {n.bookmarked && <Star size={11} className="text-amber-400 shrink-0 ml-1" fill="currentColor" />}
+              className={`note-item ${sel?.id === n.id ? 'note-item-active' : ''}`}>
+              <div className="flex justify-between items-start mb-1">
+                <span className="font-semibold text-sm truncate flex-1" style={{ color: 'var(--text-primary)' }}>{n.title}</span>
+                {n.bookmarked && <Star size={11} className="text-amber-400 shrink-0 ml-1.5 mt-0.5" fill="currentColor" />}
               </div>
-              <p className="text-slate-500 text-xs truncate">{n.content.slice(0, 55)}{n.content.length > 55 ? '…' : ''}</p>
-              <div className="flex items-center gap-2 mt-1.5">
-                <span className={`badge text-[10px] ${badgeClass(n.platform)}`} style={{ fontSize: '10px', padding: '1px 6px' }}>{n.platform}</span>
-                <span className="text-slate-600 text-[10px] font-mono">{n.created_at?.slice(0, 10)}</span>
+              <p className="text-xs truncate mb-1.5" style={{ color: 'var(--text-muted)' }}>
+                {n.content.slice(0, 60)}{n.content.length > 60 ? '…' : ''}
+              </p>
+              <div className="flex items-center gap-2">
+                <span className={`badge text-[10px] ${badgeClass(n.platform)}`} style={{ padding: '1px 6px' }}>{n.platform}</span>
+                {n.tags.slice(0, 2).map(t => (
+                  <span key={t} className="text-[10px] px-1.5 py-0.5 rounded" style={{ background: 'var(--bg-hover)', color: 'var(--text-muted)', border: '1px solid var(--border)' }}>{t}</span>
+                ))}
+                <span className="text-[10px] ml-auto font-mono" style={{ color: 'var(--text-muted)' }}>{n.created_at?.slice(0, 10)}</span>
               </div>
             </button>
           ))}
         </div>
       </div>
 
-      {/* Detail panel */}
-      <div className="flex-1 overflow-y-auto p-5 lg:p-8">
+      {/* ── Detail / Editor panel ── */}
+      <div className="flex-1 overflow-y-auto" style={{ background: 'var(--bg-base)' }}>
         {(newNote || editing) ? (
-          <div className="max-w-2xl animate-fade-in">
-            <h2 className="text-white font-bold text-lg mb-5">{editing ? 'Edit Note' : 'New Note'}</h2>
-            <div className="space-y-4">
-              <input value={form.title} onChange={e => setForm(f => ({ ...f, title: e.target.value }))} placeholder="Title…" className="input text-base font-semibold" />
-              <div className="flex gap-3">
-                <select value={form.platform} onChange={e => setForm(f => ({ ...f, platform: e.target.value as Note['platform'] }))} className="input w-28">
-                  <option value="CF">CF</option><option value="LC">LC</option><option value="BOTH">Both</option>
-                </select>
-                <input value={form.tags} onChange={e => setForm(f => ({ ...f, tags: e.target.value }))} placeholder="Tags (comma separated)" className="input flex-1" />
+          <div className="max-w-2xl mx-auto p-5 lg:p-8 animate-fade-in">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-8 h-8 rounded-xl flex items-center justify-center" style={{ background: 'rgba(59,130,246,0.12)' }}>
+                {editing ? <Pencil size={14} style={{ color: '#60a5fa' }} /> : <Plus size={14} style={{ color: '#60a5fa' }} />}
               </div>
-              <input value={form.url} onChange={e => setForm(f => ({ ...f, url: e.target.value }))} placeholder="Problem URL (optional)" className="input font-mono text-sm" />
-              <textarea value={form.content} onChange={e => setForm(f => ({ ...f, content: e.target.value }))}
-                placeholder="Write your notes here…" rows={14} className="input font-mono text-sm resize-none leading-relaxed" />
+              <h2 className="font-bold text-lg" style={{ color: 'var(--text-primary)' }}>{editing ? 'Edit Note' : 'New Note'}</h2>
+            </div>
+
+            <div className="space-y-4">
+              <div>
+                <label className="label block mb-1.5">Title</label>
+                <input value={form.title} onChange={e => setForm(f => ({ ...f, title: e.target.value }))}
+                  placeholder="Note title…" className="input text-base font-semibold" />
+              </div>
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="label block mb-1.5">Platform</label>
+                  <select value={form.platform} onChange={e => setForm(f => ({ ...f, platform: e.target.value as Note['platform'] }))} className="input">
+                    <option value="CF">Codeforces</option>
+                    <option value="LC">LeetCode</option>
+                    <option value="BOTH">Both</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="label block mb-1.5">Tags</label>
+                  <input value={form.tags} onChange={e => setForm(f => ({ ...f, tags: e.target.value }))}
+                    placeholder="dp, graphs, trees…" className="input" />
+                </div>
+              </div>
+              <div>
+                <label className="label block mb-1.5">Problem URL (optional)</label>
+                <input value={form.url} onChange={e => setForm(f => ({ ...f, url: e.target.value }))}
+                  placeholder="https://codeforces.com/…" className="input font-mono text-sm" />
+              </div>
+              <div>
+                <label className="label block mb-1.5">Content</label>
+                <textarea value={form.content} onChange={e => setForm(f => ({ ...f, content: e.target.value }))}
+                  placeholder="Write your solution approach, notes, insights…"
+                  rows={14}
+                  className="input font-mono text-sm resize-none leading-relaxed"
+                  style={{ minHeight: '280px' }} />
+              </div>
               <div className="flex gap-3">
-                <button onClick={editing ? saveEdit : saveNew} className="btn-primary">{editing ? 'Save Changes' : 'Save Note'}</button>
+                <button onClick={editing ? saveEdit : saveNew} className="btn-primary">
+                  {editing ? 'Save Changes' : 'Save Note'}
+                </button>
                 <button onClick={() => { setNewNote(false); setEditing(false) }} className="btn-secondary">Cancel</button>
               </div>
             </div>
           </div>
         ) : sel ? (
-          <div className="max-w-2xl animate-fade-in">
+          <div className="max-w-2xl mx-auto p-5 lg:p-8 animate-fade-in">
+            {/* Note header */}
             <div className="flex items-start justify-between mb-5">
               <div className="flex-1 pr-4">
-                <h2 className="text-white font-black text-xl mb-2">{sel.title}</h2>
+                <h2 className="font-black text-xl mb-3" style={{ color: 'var(--text-primary)' }}>{sel.title}</h2>
                 <div className="flex flex-wrap gap-2">
                   <span className={`badge text-xs ${badgeClass(sel.platform)}`}>{sel.platform}</span>
-                  {sel.tags.map(t => <span key={t} className="tag">{t}</span>)}
-                  <span className="flex items-center gap-1 text-slate-500 text-xs"><Clock size={9} />{sel.created_at?.slice(0, 10)}</span>
-                  {sel.url && <a href={sel.url} target="_blank" rel="noreferrer" className="flex items-center gap-1 text-blue-400 text-xs hover:underline"><Link size={9} />Problem</a>}
+                  {sel.tags.map(t => (
+                    <span key={t} className="tag">{t}</span>
+                  ))}
+                  <span className="flex items-center gap-1 text-xs" style={{ color: 'var(--text-muted)' }}>
+                    <Clock size={10} /> {sel.created_at?.slice(0, 10)}
+                  </span>
+                  {sel.url && (
+                    <a href={sel.url} target="_blank" rel="noreferrer"
+                      className="flex items-center gap-1 text-xs hover:underline" style={{ color: '#60a5fa' }}>
+                      <Link size={10} /> Problem
+                    </a>
+                  )}
                 </div>
               </div>
               <div className="flex gap-1.5 shrink-0">
-                <button onClick={startEdit} className="btn-ghost p-2"><Pencil size={14} /></button>
-                <button onClick={() => toggleBook(sel.id)} className="btn-ghost p-2">
-                  <Star size={14} className={sel.bookmarked ? 'text-amber-400' : 'text-slate-500'} fill={sel.bookmarked ? 'currentColor' : 'none'} />
+                <button onClick={startEdit} className="btn-ghost p-2" title="Edit"><Pencil size={14} /></button>
+                <button onClick={() => toggleBook(sel.id)} className="btn-ghost p-2" title="Bookmark">
+                  <Star size={14} className={sel.bookmarked ? 'text-amber-400' : ''} fill={sel.bookmarked ? 'currentColor' : 'none'} style={{ color: sel.bookmarked ? '' : 'var(--text-muted)' }} />
                 </button>
-                <button onClick={() => delN(sel.id)} className="btn-danger p-2"><Trash2 size={14} /></button>
+                <button onClick={() => delN(sel.id)} className="btn-danger p-2" title="Delete"><Trash2 size={14} /></button>
               </div>
             </div>
-            <div className="card-p bg-white/[0.025] whitespace-pre-wrap font-mono text-sm text-slate-300 leading-relaxed min-h-[300px]">
-              {sel.content || <span className="text-slate-600 italic">Empty note — click edit to add content</span>}
+
+            {/* Note content */}
+            <div className="note-content-area">
+              {sel.content
+                ? sel.content
+                : <span className="italic" style={{ color: 'var(--text-muted)' }}>Empty note — click edit to add content</span>
+              }
             </div>
           </div>
         ) : (
-          <div className="flex flex-col items-center justify-center h-full text-center">
-            <BookMarked size={40} className="text-slate-700 mb-4" />
-            <h3 className="text-white font-bold text-lg mb-2">Select a note</h3>
-            <p className="text-slate-500 text-sm max-w-xs">Notes save to Supabase — they persist across sessions.</p>
+          <div className="flex flex-col items-center justify-center h-full text-center p-8">
+            <div className="w-16 h-16 rounded-2xl flex items-center justify-center mb-4" style={{ background: 'var(--bg-hover)' }}>
+              <BookMarked size={28} style={{ color: 'var(--text-muted)' }} />
+            </div>
+            <h3 className="font-bold text-lg mb-2" style={{ color: 'var(--text-primary)' }}>Select a note</h3>
+            <p className="text-sm max-w-xs" style={{ color: 'var(--text-muted)' }}>
+              Choose a note from the sidebar to view it here, or create a new one.
+            </p>
+            <button onClick={() => setNewNote(true)} className="btn-primary mt-5">
+              <Plus size={14} /> New Note
+            </button>
           </div>
         )}
       </div>

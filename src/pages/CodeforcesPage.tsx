@@ -109,7 +109,7 @@ export default function CodeforcesPage() {
             <SectionHeader title="Skill Radar" sub="Topic mastery"/>
             <ResponsiveContainer width="100%" height={210}>
               <RadarChart data={radarData} cx="50%" cy="50%" outerRadius="70%">
-                <PolarGrid stroke="#1a2d4a"/>
+                <PolarGrid stroke="var(--border)"/>
                 <PolarAngleAxis dataKey="skill" tick={{fill:'#6b7280',fontSize:9}}/>
                 <Radar dataKey="val" stroke="#3b82f6" fill="#3b82f6" fillOpacity={0.2} strokeWidth={2} name="Proficiency"/>
               </RadarChart>

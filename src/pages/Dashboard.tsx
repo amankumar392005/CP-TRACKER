@@ -367,15 +367,15 @@
 //               <Code2 size={19} className="text-blue-400" />
 //             </div>
 //             <div className="flex-1 min-w-0">
-//               <p className="text-[11px] text-slate-500 font-semibold uppercase tracking-widest mb-0.5">Codeforces</p>
+//               <p className="text-[11px]font-semibold uppercase tracking-widest mb-0.5" style={{color:"var(--text-muted)"}}>Codeforces</p>
 //               {cfData ? (
 //                 <div>
-//                   <span className="text-white font-bold font-mono">{cfData.handle}</span>
+//                   <span style={{ color: "var(--text-primary)" }} className="font-bold font-mono">{cfData.handle}</span>
 //                   <span className="text-blue-400 font-mono font-bold ml-2">{cfData.rating}</span>
-//                   <span className="text-slate-500 text-xs ml-1 capitalize">{cfData.rank}</span>
+//                   <span className="text-xs ml-1 capitalize" style={{color:"var(--text-muted)"}}>{cfData.rank}</span>
 //                 </div>
 //               ) : (
-//                 <p className="text-slate-500 text-xs">Enter your handle below</p>
+//                 <p className="text-xs" style={{color:"var(--text-muted)"}}>Enter your handle below</p>
 //               )}
 //             </div>
 //             {cfData && (
@@ -402,15 +402,15 @@
 //               <StickyNote size={19} className="text-amber-400" />
 //             </div>
 //             <div className="flex-1 min-w-0">
-//               <p className="text-[11px] text-slate-500 font-semibold uppercase tracking-widest mb-0.5">LeetCode</p>
+//               <p className="text-[11px]font-semibold uppercase tracking-widest mb-0.5" style={{color:"var(--text-muted)"}}>LeetCode</p>
 //               {lcData ? (
 //                 <div>
-//                   <span className="text-white font-bold font-mono">{lcData.handle}</span>
+//                   <span style={{ color: "var(--text-primary)" }} className="font-bold font-mono">{lcData.handle}</span>
 //                   <span className="text-amber-400 font-mono font-bold ml-2">{lcData.contestRating}</span>
-//                   <span className="text-slate-500 text-xs ml-1">Rank #{lcData.globalRanking?.toLocaleString()}</span>
+//                   <span className="text-xs ml-1" style={{color:"var(--text-muted)"}}>Rank #{lcData.globalRanking?.toLocaleString()}</span>
 //                 </div>
 //               ) : (
-//                 <p className="text-slate-500 text-xs">Enter your username below</p>
+//                 <p className="text-xs" style={{color:"var(--text-muted)"}}>Enter your username below</p>
 //               )}
 //             </div>
 //             {lcData && (
@@ -468,10 +468,10 @@
 //             <>
 //               <ResponsiveContainer width="100%" height={200}>
 //                 <LineChart data={ratingChart} margin={{ top: 5, right: 10, bottom: 0, left: 0 }}>
-//                   <CartesianGrid strokeDasharray="3 3" stroke="#1e2d45" vertical={false} />
-//                   <XAxis dataKey="date" tick={{ fill: '#475569', fontSize: 10 }}
+//                   <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" vertical={false} />
+//                   <XAxis dataKey="date" tick={{ fill: 'var(--text-muted)', fontSize: 10 }}
 //                     axisLine={false} tickLine={false} interval="preserveStartEnd" />
-//                   <YAxis tick={{ fill: '#475569', fontSize: 11 }} axisLine={false} tickLine={false}
+//                   <YAxis tick={{ fill: 'var(--text-muted)', fontSize: 11 }} axisLine={false} tickLine={false}
 //                     width={48} domain={['dataMin - 50', 'dataMax + 50']} />
 //                   <Tooltip content={<ChartTooltip />} />
 //                   {cfData && cfData.ratingHistory.length > 0 && (
@@ -488,13 +488,13 @@
 //                 {cfData && cfData.ratingHistory.length > 0 && (
 //                   <div className="flex items-center gap-2">
 //                     <div className="w-3 h-0.5 bg-blue-500 rounded-full" />
-//                     <span className="text-slate-400 text-xs">CF · <span className="text-blue-400 font-mono font-semibold">{cfData.rating}</span></span>
+//                     <span className="text-xs" style={{color:"var(--text-muted)"}}>CF · <span className="text-blue-400 font-mono font-semibold">{cfData.rating}</span></span>
 //                   </div>
 //                 )}
 //                 {lcData && lcData.ratingHistory.length > 0 && (
 //                   <div className="flex items-center gap-2">
 //                     <div className="w-3 h-0.5 bg-amber-500 rounded-full" />
-//                     <span className="text-slate-400 text-xs">LC · <span className="text-amber-400 font-mono font-semibold">{lcData.contestRating}</span></span>
+//                     <span className="text-xs" style={{color:"var(--text-muted)"}}>LC · <span className="text-amber-400 font-mono font-semibold">{lcData.contestRating}</span></span>
 //                   </div>
 //                 )}
 //               </div>
@@ -502,7 +502,7 @@
 //           ) : (
 //             <div className="h-[200px] flex flex-col items-center justify-center gap-3">
 //               <TrendingUp size={32} className="text-slate-700" />
-//               <p className="text-sm text-slate-500">Connect handles above to see your rating history</p>
+//               <p className="text-sm" style={{color:"var(--text-muted)"}}>Connect handles above to see your rating history</p>
 //             </div>
 //           )}
 //         </Card>
@@ -511,17 +511,17 @@
 //           <SectionHeader title="Weekly Activity" sub="Problems solved per day" />
 //           <ResponsiveContainer width="100%" height={200}>
 //             <BarChart data={weeklyData} barSize={10} margin={{ top: 5, right: 10, bottom: 0, left: 0 }}>
-//               <CartesianGrid strokeDasharray="3 3" stroke="#1e2d45" vertical={false} />
-//               <XAxis dataKey="day" tick={{ fill: '#475569', fontSize: 11 }} axisLine={false} tickLine={false} />
-//               <YAxis tick={{ fill: '#475569', fontSize: 11 }} axisLine={false} tickLine={false} width={22} />
+//               <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" vertical={false} />
+//               <XAxis dataKey="day" tick={{ fill: 'var(--text-muted)', fontSize: 11 }} axisLine={false} tickLine={false} />
+//               <YAxis tick={{ fill: 'var(--text-muted)', fontSize: 11 }} axisLine={false} tickLine={false} width={22} />
 //               <Tooltip content={<ChartTooltip />} />
 //               <Bar dataKey="CF" fill="#3b82f6" name="CF" radius={[3, 3, 0, 0]} />
 //               <Bar dataKey="LC" fill="#f59e0b" name="LC" radius={[3, 3, 0, 0]} />
 //             </BarChart>
 //           </ResponsiveContainer>
 //           <div className="flex items-center gap-5 mt-3 pt-3 border-t border-white/[0.05]">
-//             <div className="flex items-center gap-2"><div className="w-3 h-3 rounded bg-blue-500" /><span className="text-slate-400 text-xs">Codeforces</span></div>
-//             <div className="flex items-center gap-2"><div className="w-3 h-3 rounded bg-amber-500" /><span className="text-slate-400 text-xs">LeetCode</span></div>
+//             <div className="flex items-center gap-2"><div className="w-3 h-3 rounded bg-blue-500" /><span className="text-xs" style={{color:"var(--text-muted)"}}>Codeforces</span></div>
+//             <div className="flex items-center gap-2"><div className="w-3 h-3 rounded bg-amber-500" /><span className="text-xs" style={{color:"var(--text-muted)"}}>LeetCode</span></div>
 //           </div>
 //         </Card>
 //       </div>
@@ -531,8 +531,8 @@
 //           <SectionHeader title="Top CF Topics" sub="Most solved problem tags from your submissions" />
 //           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
 //             {topTags.map(([tag, count]) => (
-//               <div key={tag} className="flex items-center justify-between px-4 py-3 bg-white/[0.025] rounded-xl border border-white/[0.06] hover:border-blue-500/20 hover:bg-blue-500/5 transition-all">
-//                 <span className="text-slate-300 text-sm capitalize">{tag}</span>
+//               <div key={tag} className="flex items-center justify-between px-4 py-3 rounded-xl transition-all" style={{background:"var(--bg-hover)",border:"1px solid var(--border)"}}>
+//                 <span className="text-sm capitalize" style={{color:"var(--text-second)"}}>{tag}</span>
 //                 <span className="font-mono font-bold text-blue-400">{count}</span>
 //               </div>
 //             ))}
@@ -566,18 +566,18 @@
 // function RatingTooltip({ active, payload, label }: any) {
 //   if (!active || !payload?.length) return null
 //   return (
-//     <div className="bg-[#0d1f38] border border-white/10 rounded-xl p-3 shadow-2xl max-w-xs">
-//       <p className="text-slate-400 text-xs font-mono mb-2">{label}</p>
+//     <div className="tooltip-box max-w-xs">
+//       <p className="text-xs font-mono mb-2" style={{color:"var(--text-muted)"}}>{label}</p>
 //       {payload.map((p: any) => (
 //         <div key={p.name}>
 //           <p className="font-bold text-sm" style={{ color: p.color }}>{p.name}: {p.value}</p>
-//           {p.payload?.contest && <p className="text-slate-500 text-xs mt-0.5 truncate">{p.payload.contest || p.payload.contestName}</p>}
+//           {p.payload?.contest && <p className="text-xs mt-0.5 truncate" style={{color:"var(--text-muted)"}}>{p.payload.contest || p.payload.contestName}</p>}
 //           {p.payload?.delta !== undefined && p.payload.delta !== 0 && (
 //             <p className={`text-xs font-semibold ${p.payload.delta > 0 ? 'text-green-400' : 'text-red-400'}`}>
 //               {p.payload.delta > 0 ? '+' : ''}{p.payload.delta}
 //             </p>
 //           )}
-//           {p.payload?.rank && <p className="text-slate-500 text-xs">Rank: #{p.payload.rank}</p>}
+//           {p.payload?.rank && <p className="text-xs" style={{color:"var(--text-muted)"}}>Rank: #{p.payload.rank}</p>}
 //         </div>
 //       ))}
 //     </div>
@@ -725,7 +725,7 @@
 //           icon={<LayoutDashboard size={20} />}
 //         />
 //         <div className="flex items-center gap-2 mt-1">
-//           {lastSynced && <span className="text-slate-500 text-xs hidden sm:block">Synced {lastSynced}</span>}
+//           {lastSynced && <span style={{ color: "var(--text-muted)" }} className="text-xs hidden sm:block">Synced {lastSynced}</span>}
 //           <button onClick={refreshAll} disabled={globalLoading} className="btn-secondary text-xs py-2 disabled:opacity-50">
 //             <RefreshCw size={13} className={globalLoading ? 'animate-spin' : ''} />
 //             {globalLoading ? 'Syncing…' : 'Sync Now'}
@@ -750,19 +750,19 @@
 //               <Code2 size={19} className="text-blue-400" />
 //             </div>
 //             <div className="flex-1 min-w-0">
-//               <p className="text-[11px] text-slate-500 font-semibold uppercase tracking-widest mb-0.5">Codeforces</p>
+//               <p className="text-[11px]font-semibold uppercase tracking-widest mb-0.5" style={{color:"var(--text-muted)"}}>Codeforces</p>
 //               {cfData ? (
 //                 <div className="flex items-center gap-2 flex-wrap">
-//                   <span className="text-white font-bold font-mono">{cfData.handle}</span>
+//                   <span style={{ color: "var(--text-primary)" }} className="font-bold font-mono">{cfData.handle}</span>
 //                   <span className="text-blue-400 font-mono font-bold">{cfData.rating}</span>
-//                   <span className="text-slate-500 text-xs capitalize">{cfData.rank}</span>
+//                   <span style={{ color: "var(--text-muted)" }} className="text-xs capitalize">{cfData.rank}</span>
 //                   {cfTrend !== undefined && (
 //                     <span className={`text-xs font-bold ${cfTrend >= 0 ? 'text-green-400' : 'text-red-400'}`}>
 //                       {cfTrend >= 0 ? '+' : ''}{cfTrend}
 //                     </span>
 //                   )}
 //                 </div>
-//               ) : <p className="text-slate-500 text-xs">Not connected</p>}
+//               ) : <p style={{ color: "var(--text-muted)" }} className="text-xs">Not connected</p>}
 //             </div>
 //             {cfData && (
 //               <a href={`https://codeforces.com/profile/${cfData.handle}`} target="_blank" rel="noreferrer">
@@ -789,14 +789,14 @@
 //               <StickyNote size={19} className="text-amber-400" />
 //             </div>
 //             <div className="flex-1 min-w-0">
-//               <p className="text-[11px] text-slate-500 font-semibold uppercase tracking-widest mb-0.5">LeetCode</p>
+//               <p className="text-[11px]font-semibold uppercase tracking-widest mb-0.5" style={{color:"var(--text-muted)"}}>LeetCode</p>
 //               {lcData ? (
 //                 <div className="flex items-center gap-2 flex-wrap">
-//                   <span className="text-white font-bold font-mono">{lcData.handle}</span>
+//                   <span style={{ color: "var(--text-primary)" }} className="font-bold font-mono">{lcData.handle}</span>
 //                   <span className="text-amber-400 font-mono font-bold">{lcData.contestRating}</span>
-//                   <span className="text-slate-500 text-xs">Rank #{lcData.globalRanking?.toLocaleString()}</span>
+//                   <span className="text-xs" style={{color:"var(--text-muted)"}}>Rank #{lcData.globalRanking?.toLocaleString()}</span>
 //                 </div>
-//               ) : <p className="text-slate-500 text-xs">Not connected</p>}
+//               ) : <p style={{ color: "var(--text-muted)" }} className="text-xs">Not connected</p>}
 //             </div>
 //             {lcData && (
 //               <a href={`https://leetcode.com/u/${lcData.handle}`} target="_blank" rel="noreferrer">
@@ -867,7 +867,7 @@
 //                 className={`px-3 py-1 rounded-lg text-xs font-semibold transition-all ${
 //                   ratingFilter === f
 //                     ? 'bg-blue-500/20 text-blue-400 border border-blue-500/30'
-//                     : 'text-slate-500 hover:text-slate-300 hover:bg-white/[0.05]'
+//                     : 'hover:opacity-80'
 //                 }`}>
 //                 {f}
 //               </button>
@@ -878,10 +878,10 @@
 //           <>
 //             <ResponsiveContainer width="100%" height={220}>
 //               <LineChart data={ratingChart} margin={{ top: 5, right: 10, bottom: 0, left: 0 }}>
-//                 <CartesianGrid strokeDasharray="3 3" stroke="#1e2d45" vertical={false} />
-//                 <XAxis dataKey="date" tick={{ fill: '#475569', fontSize: 10 }}
+//                 <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" vertical={false} />
+//                 <XAxis dataKey="date" tick={{ fill: 'var(--text-muted)', fontSize: 10 }}
 //                   axisLine={false} tickLine={false} interval="preserveStartEnd" />
-//                 <YAxis tick={{ fill: '#475569', fontSize: 11 }} axisLine={false} tickLine={false}
+//                 <YAxis tick={{ fill: 'var(--text-muted)', fontSize: 11 }} axisLine={false} tickLine={false}
 //                   width={50} domain={['dataMin - 50', 'dataMax + 50']} />
 //                 <Tooltip content={<RatingTooltip />} />
 //                 {cfData && cfData.ratingHistory.length > 0 && (
@@ -902,7 +902,7 @@
 //               {cfData && cfData.ratingHistory.length > 0 && (
 //                 <div className="flex items-center gap-2">
 //                   <div className="w-3 h-0.5 bg-blue-500 rounded-full" />
-//                   <span className="text-slate-400 text-xs">CF · <span className="text-blue-400 font-mono font-bold">{cfData.rating}</span>
+//                   <span className="text-xs" style={{color:"var(--text-muted)"}}>CF · <span className="text-blue-400 font-mono font-bold">{cfData.rating}</span>
 //                     {cfData.ratingHistory.length > 0 && <span className="text-slate-600 text-xs ml-1">({cfData.ratingHistory.length} contests)</span>}
 //                   </span>
 //                 </div>
@@ -910,7 +910,7 @@
 //               {lcData && lcData.ratingHistory.length > 0 && (
 //                 <div className="flex items-center gap-2">
 //                   <div className="w-3 h-0.5 bg-amber-500 rounded-full" />
-//                   <span className="text-slate-400 text-xs">LC · <span className="text-amber-400 font-mono font-bold">{lcData.contestRating}</span>
+//                   <span className="text-xs" style={{color:"var(--text-muted)"}}>LC · <span className="text-amber-400 font-mono font-bold">{lcData.contestRating}</span>
 //                     {lcData.ratingHistory.length > 0 && <span className="text-slate-600 text-xs ml-1">({lcData.ratingHistory.length} contests)</span>}
 //                   </span>
 //                 </div>
@@ -920,7 +920,7 @@
 //         ) : (
 //           <div className="h-[200px] flex flex-col items-center justify-center gap-3">
 //             <TrendingUp size={32} className="text-slate-700" />
-//             <p className="text-sm text-slate-500">
+//             <p className="text-sm" style={{color:"var(--text-muted)"}}>
 //               {(cfData || lcData) ? 'No contest history found for this filter range.' : 'Connect handles above to see real rating history.'}
 //             </p>
 //           </div>
@@ -938,9 +938,9 @@
 //                   .sort(([a], [b]) => parseInt(a) - parseInt(b))
 //                   .map(([range, count]) => ({ range: range.split('-')[0], count }))}
 //                 margin={{ top: 5, right: 10, bottom: 0, left: 0 }}>
-//                 <CartesianGrid strokeDasharray="3 3" stroke="#1e2d45" vertical={false} />
-//                 <XAxis dataKey="range" tick={{ fill: '#475569', fontSize: 10 }} axisLine={false} tickLine={false} />
-//                 <YAxis tick={{ fill: '#475569', fontSize: 10 }} axisLine={false} tickLine={false} width={30} />
+//                 <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" vertical={false} />
+//                 <XAxis dataKey="range" tick={{ fill: 'var(--text-muted)', fontSize: 10 }} axisLine={false} tickLine={false} />
+//                 <YAxis tick={{ fill: 'var(--text-muted)', fontSize: 10 }} axisLine={false} tickLine={false} width={30} />
 //                 <Tooltip content={<ChartTooltip />} />
 //                 <Bar dataKey="count" name="Solved" radius={[4, 4, 0, 0]}
 //                   fill="url(#cfBar)"
@@ -970,9 +970,9 @@
 //                       <div className="flex justify-between mb-1.5">
 //                         <div className="flex items-center gap-2">
 //                           <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: d.color }} />
-//                           <span className="text-slate-300 text-sm font-semibold">{d.label}</span>
+//                           <span className="text-sm font-semibold" style={{color:"var(--text-second)"}}>{d.label}</span>
 //                         </div>
-//                         <span className="text-slate-400 font-mono text-sm">{d.solved.toLocaleString()} / {d.total.toLocaleString()} · <span className="text-white font-bold">{pct}%</span></span>
+//                         <span className="font-mono text-sm" style={{color:"var(--text-muted)"}}>{d.solved.toLocaleString()} / {d.total.toLocaleString()} · <span className="font-bold" style={{color:"var(--text-primary)"}}>{pct}%</span></span>
 //                       </div>
 //                       <div className="h-2 bg-white/[0.05] rounded-full overflow-hidden">
 //                         <div className="h-full rounded-full transition-all duration-700" style={{ width: `${pct}%`, backgroundColor: d.color }} />
@@ -981,8 +981,8 @@
 //                   )
 //                 })}
 //                 <div className="pt-3 border-t border-white/[0.06] flex justify-between text-sm">
-//                   <span className="text-slate-400">Total Solved</span>
-//                   <span className="text-white font-bold font-mono">{lcData.totalSolved.toLocaleString()}</span>
+//                   <span className="" style={{color:"var(--text-muted)"}}>Total Solved</span>
+//                   <span style={{ color: "var(--text-primary)" }} className="font-bold font-mono">{lcData.totalSolved.toLocaleString()}</span>
 //                 </div>
 //               </div>
 //             ) : (
@@ -998,8 +998,8 @@
 //           <SectionHeader title="Top CF Topics" sub="Most solved tags from your actual submissions" />
 //           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
 //             {topTags.map(([tag, count]) => (
-//               <div key={tag} className="flex items-center justify-between px-4 py-3 bg-white/[0.025] rounded-xl border border-white/[0.06] hover:border-blue-500/20 hover:bg-blue-500/5 transition-all">
-//                 <span className="text-slate-300 text-sm capitalize">{tag}</span>
+//               <div key={tag} className="flex items-center justify-between px-4 py-3 rounded-xl transition-all" style={{background:"var(--bg-hover)",border:"1px solid var(--border)"}}>
+//                 <span className="text-sm capitalize" style={{color:"var(--text-second)"}}>{tag}</span>
 //                 <span className="font-mono font-bold text-blue-400">{count}</span>
 //               </div>
 //             ))}
@@ -1025,13 +1025,13 @@
 //               <tbody className="divide-y divide-white/[0.04]">
 //                 {cfData.contests.slice(0, 8).map((c, i) => (
 //                   <tr key={i} className="hover:bg-white/[0.02] transition-colors">
-//                     <td className="py-2.5 pr-4 text-slate-300 text-xs max-w-[200px] truncate">{c.name}</td>
-//                     <td className="py-2.5 pr-4 text-right text-slate-500 font-mono text-xs">{c.date}</td>
+//                     <td className="py-2.5 pr-4text-xs max-w-[200px] truncate" style={{color:"var(--text-second)"}}>{c.name}</td>
+//                     <td className="py-2.5 pr-4 text-rightfont-mono text-xs" style={{color:"var(--text-muted)"}}>{c.date}</td>
 //                     <td className="py-2.5 pr-4 text-right font-bold text-amber-400 font-mono">#{c.rank}</td>
 //                     <td className={`py-2.5 pr-4 text-right font-bold font-mono ${c.delta >= 0 ? 'text-green-400' : 'text-red-400'}`}>
 //                       {c.delta >= 0 ? '+' : ''}{c.delta}
 //                     </td>
-//                     <td className="py-2.5 text-right text-slate-300 font-mono">{c.newRating}</td>
+//                     <td className="py-2.5 text-rightfont-mono" style={{color:"var(--text-second)"}}>{c.newRating}</td>
 //                   </tr>
 //                 ))}
 //               </tbody>
@@ -1065,18 +1065,18 @@ import {
 function RatingTooltip({ active, payload, label }: any) {
   if (!active || !payload?.length) return null
   return (
-    <div className="bg-[#0d1f38] border border-white/10 rounded-xl p-3 shadow-2xl max-w-xs">
-      <p className="text-slate-400 text-xs font-mono mb-2">{label}</p>
+    <div className="tooltip-box max-w-xs">
+      <p className="text-xs font-mono mb-2" style={{color:"var(--text-muted)"}}>{label}</p>
       {payload.map((p: any) => (
         <div key={p.name}>
           <p className="font-bold text-sm" style={{ color: p.color }}>{p.name}: {p.value}</p>
-          {p.payload?.contest && <p className="text-slate-500 text-xs mt-0.5 truncate">{p.payload.contest || p.payload.contestName}</p>}
+          {p.payload?.contest && <p className="text-xs mt-0.5 truncate" style={{color:"var(--text-muted)"}}>{p.payload.contest || p.payload.contestName}</p>}
           {p.payload?.delta !== undefined && p.payload.delta !== 0 && (
             <p className={`text-xs font-semibold ${p.payload.delta > 0 ? 'text-green-400' : 'text-red-400'}`}>
               {p.payload.delta > 0 ? '+' : ''}{p.payload.delta}
             </p>
           )}
-          {p.payload?.rank && <p className="text-slate-500 text-xs">Rank: #{p.payload.rank}</p>}
+          {p.payload?.rank && <p className="text-xs" style={{color:"var(--text-muted)"}}>Rank: #{p.payload.rank}</p>}
         </div>
       ))}
     </div>
@@ -1224,7 +1224,7 @@ export default function Dashboard() {
           icon={<LayoutDashboard size={20} />}
         />
         <div className="flex items-center gap-2 mt-1">
-          {lastSynced && <span className="text-slate-500 text-xs hidden sm:block">Synced {lastSynced}</span>}
+          {lastSynced && <span style={{ color: "var(--text-muted)" }} className="text-xs hidden sm:block">Synced {lastSynced}</span>}
           <button onClick={refreshAll} disabled={globalLoading} className="btn-secondary text-xs py-2 disabled:opacity-50">
             <RefreshCw size={13} className={globalLoading ? 'animate-spin' : ''} />
             {globalLoading ? 'Syncing…' : 'Sync Now'}
@@ -1249,19 +1249,19 @@ export default function Dashboard() {
               <Code2 size={19} className="text-blue-400" />
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-[11px] text-slate-500 font-semibold uppercase tracking-widest mb-0.5">Codeforces</p>
+              <p className="text-[11px]font-semibold uppercase tracking-widest mb-0.5" style={{color:"var(--text-muted)"}}>Codeforces</p>
               {cfData ? (
                 <div className="flex items-center gap-2 flex-wrap">
-                  <span className="text-white font-bold font-mono">{cfData.handle}</span>
+                  <span style={{ color: "var(--text-primary)" }} className="font-bold font-mono">{cfData.handle}</span>
                   <span className="text-blue-400 font-mono font-bold">{cfData.rating}</span>
-                  <span className="text-slate-500 text-xs capitalize">{cfData.rank}</span>
+                  <span style={{ color: "var(--text-muted)" }} className="text-xs capitalize">{cfData.rank}</span>
                   {cfTrend !== undefined && (
                     <span className={`text-xs font-bold ${cfTrend >= 0 ? 'text-green-400' : 'text-red-400'}`}>
                       {cfTrend >= 0 ? '+' : ''}{cfTrend}
                     </span>
                   )}
                 </div>
-              ) : <p className="text-slate-500 text-xs">Not connected</p>}
+              ) : <p style={{ color: "var(--text-muted)" }} className="text-xs">Not connected</p>}
             </div>
             {cfData && (
               <a href={`https://codeforces.com/profile/${cfData.handle}`} target="_blank" rel="noreferrer">
@@ -1288,14 +1288,14 @@ export default function Dashboard() {
               <StickyNote size={19} className="text-amber-400" />
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-[11px] text-slate-500 font-semibold uppercase tracking-widest mb-0.5">LeetCode</p>
+              <p className="text-[11px]font-semibold uppercase tracking-widest mb-0.5" style={{color:"var(--text-muted)"}}>LeetCode</p>
               {lcData ? (
                 <div className="flex items-center gap-2 flex-wrap">
-                  <span className="text-white font-bold font-mono">{lcData.handle}</span>
+                  <span style={{ color: "var(--text-primary)" }} className="font-bold font-mono">{lcData.handle}</span>
                   <span className="text-amber-400 font-mono font-bold">{lcData.contestRating}</span>
-                  <span className="text-slate-500 text-xs">Rank #{lcData.globalRanking?.toLocaleString()}</span>
+                  <span className="text-xs" style={{color:"var(--text-muted)"}}>Rank #{lcData.globalRanking?.toLocaleString()}</span>
                 </div>
-              ) : <p className="text-slate-500 text-xs">Not connected</p>}
+              ) : <p style={{ color: "var(--text-muted)" }} className="text-xs">Not connected</p>}
             </div>
             {lcData && (
               <a href={`https://leetcode.com/u/${lcData.handle}`} target="_blank" rel="noreferrer">
@@ -1366,7 +1366,7 @@ export default function Dashboard() {
                 className={`px-3 py-1 rounded-lg text-xs font-semibold transition-all ${
                   ratingFilter === f
                     ? 'bg-blue-500/20 text-blue-400 border border-blue-500/30'
-                    : 'text-slate-500 hover:text-slate-300 hover:bg-white/[0.05]'
+                    : 'hover:opacity-80'
                 }`}>
                 {f}
               </button>
@@ -1377,10 +1377,10 @@ export default function Dashboard() {
           <>
             <ResponsiveContainer width="100%" height={220}>
               <LineChart data={ratingChart} margin={{ top: 5, right: 10, bottom: 0, left: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#1e2d45" vertical={false} />
-                <XAxis dataKey="date" tick={{ fill: '#475569', fontSize: 10 }}
+                <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" vertical={false} />
+                <XAxis dataKey="date" tick={{ fill: 'var(--text-muted)', fontSize: 10 }}
                   axisLine={false} tickLine={false} interval="preserveStartEnd" />
-                <YAxis tick={{ fill: '#475569', fontSize: 11 }} axisLine={false} tickLine={false}
+                <YAxis tick={{ fill: 'var(--text-muted)', fontSize: 11 }} axisLine={false} tickLine={false}
                   width={50} domain={['dataMin - 50', 'dataMax + 50']} />
                 <Tooltip content={<RatingTooltip />} />
                 {cfData && cfData.ratingHistory.length > 0 && (
@@ -1401,7 +1401,7 @@ export default function Dashboard() {
               {cfData && cfData.ratingHistory.length > 0 && (
                 <div className="flex items-center gap-2">
                   <div className="w-3 h-0.5 bg-blue-500 rounded-full" />
-                  <span className="text-slate-400 text-xs">CF · <span className="text-blue-400 font-mono font-bold">{cfData.rating}</span>
+                  <span className="text-xs" style={{color:"var(--text-muted)"}}>CF · <span className="text-blue-400 font-mono font-bold">{cfData.rating}</span>
                     {cfData.ratingHistory.length > 0 && <span className="text-slate-600 text-xs ml-1">({cfData.ratingHistory.length} contests)</span>}
                   </span>
                 </div>
@@ -1409,7 +1409,7 @@ export default function Dashboard() {
               {lcData && lcData.ratingHistory.length > 0 && (
                 <div className="flex items-center gap-2">
                   <div className="w-3 h-0.5 bg-amber-500 rounded-full" />
-                  <span className="text-slate-400 text-xs">LC · <span className="text-amber-400 font-mono font-bold">{lcData.contestRating}</span>
+                  <span className="text-xs" style={{color:"var(--text-muted)"}}>LC · <span className="text-amber-400 font-mono font-bold">{lcData.contestRating}</span>
                     {lcData.ratingHistory.length > 0 && <span className="text-slate-600 text-xs ml-1">({lcData.ratingHistory.length} contests)</span>}
                   </span>
                 </div>
@@ -1419,7 +1419,7 @@ export default function Dashboard() {
         ) : (
           <div className="h-[200px] flex flex-col items-center justify-center gap-3">
             <TrendingUp size={32} className="text-slate-700" />
-            <p className="text-sm text-slate-500">
+            <p className="text-sm" style={{color:"var(--text-muted)"}}>
               {(cfData || lcData) ? 'No contest history found for this filter range.' : 'Connect handles above to see real rating history.'}
             </p>
           </div>
@@ -1437,9 +1437,9 @@ export default function Dashboard() {
                   .sort(([a], [b]) => parseInt(a) - parseInt(b))
                   .map(([range, count]) => ({ range: range.split('-')[0], count }))}
                 margin={{ top: 5, right: 10, bottom: 0, left: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#1e2d45" vertical={false} />
-                <XAxis dataKey="range" tick={{ fill: '#475569', fontSize: 10 }} axisLine={false} tickLine={false} />
-                <YAxis tick={{ fill: '#475569', fontSize: 10 }} axisLine={false} tickLine={false} width={30} />
+                <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" vertical={false} />
+                <XAxis dataKey="range" tick={{ fill: 'var(--text-muted)', fontSize: 10 }} axisLine={false} tickLine={false} />
+                <YAxis tick={{ fill: 'var(--text-muted)', fontSize: 10 }} axisLine={false} tickLine={false} width={30} />
                 <Tooltip content={<ChartTooltip />} />
                 <Bar dataKey="count" name="Solved" radius={[4, 4, 0, 0]}
                   fill="url(#cfBar)"
@@ -1469,9 +1469,9 @@ export default function Dashboard() {
                       <div className="flex justify-between mb-1.5">
                         <div className="flex items-center gap-2">
                           <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: d.color }} />
-                          <span className="text-slate-300 text-sm font-semibold">{d.label}</span>
+                          <span className="text-sm font-semibold" style={{color:"var(--text-second)"}}>{d.label}</span>
                         </div>
-                        <span className="text-slate-400 font-mono text-sm">{d.solved.toLocaleString()} / {d.total.toLocaleString()} · <span className="text-white font-bold">{pct}%</span></span>
+                        <span className="font-mono text-sm" style={{color:"var(--text-muted)"}}>{d.solved.toLocaleString()} / {d.total.toLocaleString()} · <span className="font-bold" style={{color:"var(--text-primary)"}}>{pct}%</span></span>
                       </div>
                       <div className="h-2 bg-white/[0.05] rounded-full overflow-hidden">
                         <div className="h-full rounded-full transition-all duration-700" style={{ width: `${pct}%`, backgroundColor: d.color }} />
@@ -1480,8 +1480,8 @@ export default function Dashboard() {
                   )
                 })}
                 <div className="pt-3 border-t border-white/[0.06] flex justify-between text-sm">
-                  <span className="text-slate-400">Total Solved</span>
-                  <span className="text-white font-bold font-mono">{lcData.totalSolved.toLocaleString()}</span>
+                  <span className="" style={{color:"var(--text-muted)"}}>Total Solved</span>
+                  <span style={{ color: "var(--text-primary)" }} className="font-bold font-mono">{lcData.totalSolved.toLocaleString()}</span>
                 </div>
               </div>
             ) : (
@@ -1497,8 +1497,8 @@ export default function Dashboard() {
           <SectionHeader title="Top CF Topics" sub="Most solved tags from your actual submissions" />
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {topTags.map(([tag, count]) => (
-              <div key={tag} className="flex items-center justify-between px-4 py-3 bg-white/[0.025] rounded-xl border border-white/[0.06] hover:border-blue-500/20 hover:bg-blue-500/5 transition-all">
-                <span className="text-slate-300 text-sm capitalize">{tag}</span>
+              <div key={tag} className="flex items-center justify-between px-4 py-3 rounded-xl transition-all" style={{background:"var(--bg-hover)",border:"1px solid var(--border)"}}>
+                <span className="text-sm capitalize" style={{color:"var(--text-second)"}}>{tag}</span>
                 <span className="font-mono font-bold text-blue-400">{count}</span>
               </div>
             ))}
@@ -1524,13 +1524,13 @@ export default function Dashboard() {
               <tbody className="divide-y divide-white/[0.04]">
                 {cfData.contests.slice(0, 8).map((c, i) => (
                   <tr key={i} className="hover:bg-white/[0.02] transition-colors">
-                    <td className="py-2.5 pr-4 text-slate-300 text-xs max-w-[200px] truncate">{c.name}</td>
-                    <td className="py-2.5 pr-4 text-right text-slate-500 font-mono text-xs">{c.date}</td>
+                    <td className="py-2.5 pr-4text-xs max-w-[200px] truncate" style={{color:"var(--text-second)"}}>{c.name}</td>
+                    <td className="py-2.5 pr-4 text-rightfont-mono text-xs" style={{color:"var(--text-muted)"}}>{c.date}</td>
                     <td className="py-2.5 pr-4 text-right font-bold text-amber-400 font-mono">#{c.rank}</td>
                     <td className={`py-2.5 pr-4 text-right font-bold font-mono ${c.delta >= 0 ? 'text-green-400' : 'text-red-400'}`}>
                       {c.delta >= 0 ? '+' : ''}{c.delta}
                     </td>
-                    <td className="py-2.5 text-right text-slate-300 font-mono">{c.newRating}</td>
+                    <td className="py-2.5 text-rightfont-mono" style={{color:"var(--text-second)"}}>{c.newRating}</td>
                   </tr>
                 ))}
               </tbody>

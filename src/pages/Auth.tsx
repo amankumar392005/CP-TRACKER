@@ -72,7 +72,7 @@ export default function AuthPage() {
         {/* Logo */}
         <Link to="/" className="flex flex-col items-center mb-8">
           <div className="w-14 h-14 bg-gradient-to-br from-primary to-cyan rounded-2xl flex items-center justify-center shadow-glow mb-3">
-            <Zap size={26} className="text-white" fill="white"/>
+            <Zap size={26} className="text-inherit" fill="white"/>
           </div>
           <h1 className="text-2xl font-black text-n-900">CP Tracker AI</h1>
           <p className="text-n-500 text-sm mt-1">Competitive Programming Analytics & AI Coaching</p>
@@ -83,7 +83,7 @@ export default function AuthPage() {
           <div className="flex bg-bg-hover rounded-xl p-1 mb-5">
             {(['signin','signup'] as const).map(t => (
               <button key={t} onClick={() => { setTab(t); setError(''); setInfo('') }}
-                className={`flex-1 py-2 text-sm font-semibold rounded-lg transition-all ${tab===t?'bg-primary text-white shadow-glow-sm':'text-n-500 hover:text-n-800'}`}>
+                className={`flex-1 py-2 text-sm font-semibold rounded-lg transition-all ${tab===t?'bg-primary text-inherit shadow-glow-sm':'text-n-500 hover:text-n-800'}`}>
                 {t==='signin'?'Sign In':'Sign Up'}
               </button>
             ))}

@@ -87,7 +87,7 @@ export default function ProfilePage() {
       {/* Profile hero */}
       <Card className="border-primary/20">
         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-5">
-          <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-primary to-cyan flex items-center justify-center text-white text-3xl font-black shadow-glow shrink-0">
+          <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-primary to-cyan flex items-center justify-centertext-3xl font-black shadow-glow shrink-0" style={{color:"var(--text-primary)"}}>
             {(profile?.display_name ?? profile?.email ?? 'U')[0].toUpperCase()}
           </div>
           <div className="flex-1">
@@ -214,7 +214,7 @@ export default function ProfilePage() {
               <Card>
                 <SectionHeader title="Signed In As"/>
                 <div className="flex items-center gap-4 p-4 bg-bg-hover border border-bg-border rounded-xl">
-                  <div className="w-10 h-10 bg-gradient-to-br from-primary to-cyan rounded-xl flex items-center justify-center text-white font-bold">
+                  <div className="w-10 h-10 bg-gradient-to-br from-primary to-cyan rounded-xl flex items-center justify-centerfont-bold" style={{color:"var(--text-primary)"}}>
                     {(profile?.display_name ?? 'U')[0]}
                   </div>
                   <div>

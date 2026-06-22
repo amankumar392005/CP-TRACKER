@@ -226,15 +226,15 @@ function RatingTooltip({ active, payload, label }: any) {
   const d = payload[0]?.payload
   return (
     <div className="bg-[#0d1f38] border border-white/10 rounded-xl p-3 shadow-2xl max-w-xs">
-      <p className="text-slate-400 text-xs font-mono mb-1">{label}</p>
+      <p className="text-xs font-mono mb-1" style={{color:"var(--text-muted)"}}>{label}</p>
       <p className="font-bold text-amber-400 text-sm font-mono">{d?.rating}</p>
-      {d?.contestName && <p className="text-slate-500 text-xs truncate mt-0.5">{d.contestName}</p>}
+      {d?.contestName && <p className="text-xs truncate mt-0.5" style={{color:"var(--text-muted)"}}>{d.contestName}</p>}
       {d?.delta !== undefined && d.delta !== 0 && (
         <p className={`text-xs font-bold mt-0.5 ${d.delta > 0 ? 'text-green-400' : 'text-red-400'}`}>
           {d.delta > 0 ? '+' : ''}{d.delta}
         </p>
       )}
-      {d?.rank && <p className="text-slate-500 text-xs">Rank: #{d.rank.toLocaleString()}</p>}
+      {d?.rank && <p className="text-xs" style={{color:"var(--text-muted)"}}>Rank: #{d.rank.toLocaleString()}</p>}
     </div>
   )
 }
@@ -272,8 +272,8 @@ export default function LeetCodePage() {
   if (!data) return (
     <div className="flex-1 p-5 lg:p-8 flex flex-col items-center justify-center gap-4 text-center">
       <StickyNote size={48} className="text-slate-700" />
-      <h2 className="text-xl font-bold text-white">No LeetCode data yet</h2>
-      <p className="text-slate-500 text-sm max-w-xs">Go to Dashboard and connect your LeetCode username first.</p>
+      <h2 className="text-xl font-bold" style={{color:"var(--text-primary)"}}>No LeetCode data yet</h2>
+      <p className="text-sm max-w-xs" style={{color:"var(--text-muted)"}}>Go to Dashboard and connect your LeetCode username first.</p>
     </div>
   )
 
@@ -326,7 +326,7 @@ export default function LeetCodePage() {
             <h2 className="text-2xl font-black text-amber-400 font-mono">{data.handle}</h2>
             {data.globalRanking > 0 && <span className="badge-amber">Global Rank #{data.globalRanking.toLocaleString()}</span>}
           </div>
-          {data.username && data.username !== data.handle && <p className="text-slate-400 text-sm mb-2">{data.username}</p>}
+          {data.username && data.username !== data.handle && <p className="text-sm mb-2" style={{color:"var(--text-muted)"}}>{data.username}</p>}
           <div className="flex flex-wrap gap-5 text-sm">
             {[
               { label: 'Contest Rating', val: data.contestRating,                          color: 'text-amber-400' },
@@ -335,7 +335,7 @@ export default function LeetCodePage() {
               { label: 'Contests',       val: data.totalContests,                           color: 'text-white' },
             ].map(x => (
               <div key={x.label}>
-                <span className="text-slate-500 text-xs block">{x.label}</span>
+                <span className="text-xs block" style={{color:"var(--text-muted)"}}>{x.label}</span>
                 <span className={`font-bold font-mono ${x.color}`}>{x.val}</span>
               </div>
             ))}
@@ -375,7 +375,7 @@ export default function LeetCodePage() {
             {pieData.map(d => (
               <div key={d.name} className="flex items-center gap-1.5 text-xs">
                 <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: d.color }} />
-                <span className="text-slate-400">{d.name}: <span className="font-mono font-bold text-white">{d.value}</span></span>
+                <span className="" style={{color:"var(--text-muted)"}}>{d.name}: <span className="font-mono font-bold" style={{color:"var(--text-primary)"}}>{d.value}</span></span>
               </div>
             ))}
           </div>
@@ -405,9 +405,9 @@ export default function LeetCodePage() {
                         <stop offset="95%" stopColor="#f59e0b" stopOpacity={0} />
                       </linearGradient>
                     </defs>
-                    <CartesianGrid strokeDasharray="3 3" stroke="#1e2d45" vertical={false} />
-                    <XAxis dataKey="date" tick={{ fill: '#475569', fontSize: 10 }} axisLine={false} tickLine={false} interval="preserveStartEnd" />
-                    <YAxis tick={{ fill: '#475569', fontSize: 11 }} axisLine={false} tickLine={false} width={48} domain={['dataMin - 50', 'dataMax + 50']} />
+                    <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" vertical={false} />
+                    <XAxis dataKey="date" tick={{ fill: 'var(--text-muted)', fontSize: 10 }} axisLine={false} tickLine={false} interval="preserveStartEnd" />
+                    <YAxis tick={{ fill: 'var(--text-muted)', fontSize: 11 }} axisLine={false} tickLine={false} width={48} domain={['dataMin - 50', 'dataMax + 50']} />
                     <Tooltip content={<RatingTooltip />} />
                     <Area type="monotone" dataKey="rating" stroke="#f59e0b" strokeWidth={2.5}
                       fill="url(#lcGrad)"
@@ -419,9 +419,9 @@ export default function LeetCodePage() {
                 <div className="flex items-center justify-between mt-3 pt-3 border-t border-white/[0.05] text-xs">
                   <div className="flex items-center gap-2">
                     <div className="w-3 h-0.5 bg-amber-500 rounded-full" />
-                    <span className="text-slate-400">Current: <span className="text-amber-400 font-mono font-bold">{data.contestRating}</span></span>
+                    <span className="" style={{color:"var(--text-muted)"}}>Current: <span className="text-amber-400 font-mono font-bold">{data.contestRating}</span></span>
                   </div>
-                  <span className="text-slate-500">Peak: <span className="text-white font-mono font-bold">{data.maxRating}</span></span>
+                  <span className="" style={{color:"var(--text-muted)"}}>Peak: <span className="font-mono font-bold" style={{color:"var(--text-primary)"}}>{data.maxRating}</span></span>
                 </div>
               </>
             ) : (
@@ -445,12 +445,12 @@ export default function LeetCodePage() {
                   <div className="flex justify-between mb-2">
                     <div className="flex items-center gap-2">
                       <div className="w-3 h-3 rounded-full" style={{ backgroundColor: d.color }} />
-                      <span className="text-white font-semibold text-sm">{d.name}</span>
+                      <span className="font-semibold text-sm" style={{color:"var(--text-primary)"}}>{d.name}</span>
                     </div>
                     <div className="text-right">
-                      <span className="font-mono font-bold text-white">{d.value.toLocaleString()}</span>
-                      <span className="text-slate-500 font-mono text-sm"> / {d.total.toLocaleString()}</span>
-                      <span className="text-slate-400 text-xs ml-2">({pct}%)</span>
+                      <span className="font-mono font-bold" style={{color:"var(--text-primary)"}}>{d.value.toLocaleString()}</span>
+                      <span className="font-mono text-sm" style={{color:"var(--text-muted)"}}> / {d.total.toLocaleString()}</span>
+                      <span className="text-xs ml-2" style={{color:"var(--text-muted)"}}>({pct}%)</span>
                     </div>
                   </div>
                   <div className="h-2.5 bg-white/[0.05] rounded-full overflow-hidden">
@@ -460,8 +460,8 @@ export default function LeetCodePage() {
               )
             })}
             <div className="pt-3 border-t border-white/[0.06] flex justify-between">
-              <span className="text-slate-400 text-sm">Total Solved</span>
-              <span className="text-white font-bold font-mono">{data.totalSolved.toLocaleString()}</span>
+              <span className="text-sm" style={{color:"var(--text-muted)"}}>Total Solved</span>
+              <span className="font-bold font-mono" style={{color:"var(--text-primary)"}}>{data.totalSolved.toLocaleString()}</span>
             </div>
           </div>
         </Card>
@@ -476,8 +476,8 @@ export default function LeetCodePage() {
               return (
                 <div key={topic}>
                   <div className="flex justify-between mb-1">
-                    <span className="text-slate-300 text-sm">{topic}</span>
-                    <span className="text-slate-400 text-xs font-mono font-semibold">{solved}</span>
+                    <span className="text-sm" style={{color:"var(--text-second)"}}>{topic}</span>
+                    <span className="text-xs font-mono font-semibold" style={{color:"var(--text-muted)"}}>{solved}</span>
                   </div>
                   <div className="h-1.5 bg-white/[0.05] rounded-full overflow-hidden">
                     <div className="h-full rounded-full transition-all duration-700"
@@ -511,10 +511,10 @@ export default function LeetCodePage() {
               <tbody className="divide-y divide-white/[0.04]">
                 {data.contests.map((c, i) => (
                   <tr key={i} className="hover:bg-white/[0.02] transition-colors">
-                    <td className="py-2.5 pr-4 text-slate-300 text-xs max-w-[220px] truncate">{c.name}</td>
-                    <td className="py-2.5 pr-4 text-right text-slate-500 font-mono text-xs">{c.date}</td>
+                    <td className="py-2.5 pr-4text-xs max-w-[220px] truncate" style={{color:"var(--text-second)"}}>{c.name}</td>
+                    <td className="py-2.5 pr-4 text-rightfont-mono text-xs" style={{color:"var(--text-muted)"}}>{c.date}</td>
                     <td className="py-2.5 pr-4 text-right font-bold text-amber-400 font-mono">#{c.rank.toLocaleString()}</td>
-                    <td className="py-2.5 pr-4 text-right text-slate-300 font-mono">{c.rating}</td>
+                    <td className="py-2.5 pr-4 text-rightfont-mono" style={{color:"var(--text-second)"}}>{c.rating}</td>
                     <td className={`py-2.5 text-right font-bold font-mono text-sm ${c.delta > 0 ? 'text-green-400' : c.delta < 0 ? 'text-red-400' : 'text-slate-500'}`}>
                       {c.delta > 0 ? '+' : ''}{c.delta}
                     </td>

@@ -147,81 +147,33 @@ export async function fetchCFData(handle: string): Promise<CFData> {
 // ═══════════════════════════════════════════════════════════════════════════
 // LEETCODE — tries multiple CORS proxies
 // ═══════════════════════════════════════════════════════════════════════════
-const LC_GQL = `query getUserProfile($username: String!) {
-  matchedUser(username: $username) {
-    username
-    profile { realName userAvatar ranking countryName }
-    submitStats {
-      acSubmissionNum { difficulty count submissions }
-      totalSubmissionNum { difficulty count submissions }
-    }
-    tagProblemCounts {
-      advanced      { tagName tagSlug problemsSolved }
-      intermediate  { tagName tagSlug problemsSolved }
-      fundamental   { tagName tagSlug problemsSolved }
-    }
-    languageProblemCount { languageName problemsSolved }
-  }
-  allQuestionsCount { difficulty count }
-  userContestRanking(username: $username) {
-    rating globalRanking attendedContestsCount
-  }
-  userContestRankingHistory(username: $username) {
-    attended rating ranking
-    contest { title startTime }
-  }
-}`
-
 export async function fetchLCData(handle: string): Promise<LCData> {
-  const body = JSON.stringify({ query: LC_GQL, variables: { username: handle } })
-  const proxies = [
-    () => fetch('https://corsproxy.io/?' + encodeURIComponent('https://leetcode.com/graphql'), {
-      method: 'POST', headers: { 'Content-Type': 'application/json' }, body,
-    }),
-    () => fetch('https://api.allorigins.win/post?url=' + encodeURIComponent('https://leetcode.com/graphql'), {
-      method: 'POST', headers: { 'Content-Type': 'application/json' }, body,
-    }),
-    () => fetch('https://thingproxy.freeboard.io/fetch/https://leetcode.com/graphql', {
-      method: 'POST', headers: { 'Content-Type': 'application/json' }, body,
-    }),
-  ]
+  const [userRes, profileRes, contestRes, skillRes] = await Promise.all([
+    fetch(`https://alfa-leetcode-api.onrender.com/${handle}`).catch(() => null),
+    fetch(`https://alfa-leetcode-api.onrender.com/userProfile/${handle}`).catch(() => null),
+    fetch(`https://alfa-leetcode-api.onrender.com/${handle}/contest`).catch(() => null),
+    fetch(`https://alfa-leetcode-api.onrender.com/skillStats/${handle}`).catch(() => null)
+  ])
 
-  let raw: any = null
-  for (const proxy of proxies) {
-    try {
-      const r = await proxy()
-      if (!r.ok) continue
-      const data = await r.json()
-      raw = data?.contents ? (() => { try { return JSON.parse(data.contents) } catch { return null } })() : data
-      if (raw?.data?.matchedUser) break
-      raw = null
-    } catch { continue }
-  }
+  if (!profileRes || !profileRes.ok) throw new Error('LeetCode user not found or API unreachable.')
+  
+  const user = userRes && userRes.ok ? await userRes.json() : {}
+  const profile = await profileRes.json()
+  const contest = contestRes && contestRes.ok ? await contestRes.json() : {}
+  const skill = skillRes && skillRes.ok ? await skillRes.json() : null
 
-  if (!raw?.data?.matchedUser) throw new Error('LeetCode user not found or API unreachable.')
-
-  const mu = raw.data.matchedUser
-  const cr = raw.data.userContestRanking
-  const history = raw.data.userContestRankingHistory ?? []
-
-  const ac = mu.submitStats?.acSubmissionNum ?? []
-  const total  = ac.find((s: any) => s.difficulty === 'All')?.count    ?? 0
-  const easy   = ac.find((s: any) => s.difficulty === 'Easy')?.count   ?? 0
-  const medium = ac.find((s: any) => s.difficulty === 'Medium')?.count ?? 0
-  const hard   = ac.find((s: any) => s.difficulty === 'Hard')?.count   ?? 0
-  const totalSubs = ac.find((s: any) => s.difficulty === 'All')?.submissions ?? 1
+  if (profile.errors || user.errors) throw new Error('LeetCode user not found.')
 
   const tagDist: Record<string, number> = {}
-  for (const grp of [mu.tagProblemCounts?.advanced, mu.tagProblemCounts?.intermediate, mu.tagProblemCounts?.fundamental]) {
-    for (const t of grp ?? []) if (t.problemsSolved > 0) tagDist[t.tagName] = (tagDist[t.tagName] ?? 0) + t.problemsSolved
+  if (skill?.data?.matchedUser?.tagProblemCounts) {
+    const counts = skill.data.matchedUser.tagProblemCounts
+    for (const grp of [counts.advanced, counts.intermediate, counts.fundamental]) {
+      for (const t of grp ?? []) if (t.problemsSolved > 0) tagDist[t.tagName] = (tagDist[t.tagName] ?? 0) + t.problemsSolved
+    }
   }
 
-  const langStats: Record<string, number> = {}
-  for (const l of mu.languageProblemCount ?? []) langStats[l.languageName] = l.problemsSolved
-
-  const attended = history.filter((h: any) => h.attended)
-    .sort((a: any, b: any) => a.contest.startTime - b.contest.startTime)
-
+  const attended = contest.contestParticipation ?? []
+  
   const ratingHistory = attended.map((h: any, i: number) => {
     const prev = attended[i - 1]
     return {
@@ -241,18 +193,27 @@ export async function fetchLCData(handle: string): Promise<LCData> {
   }))
 
   return {
-    handle, username: mu.profile?.realName ?? handle,
-    avatar: mu.profile?.userAvatar ?? '', ranking: mu.profile?.ranking ?? 0,
-    contestRating: cr ? Math.round(cr.rating) : 0,
-    maxRating: ratingHistory.length ? Math.max(...ratingHistory.map(h => h.rating)) : 0,
-    totalSolved: total, easySolved: easy, mediumSolved: medium, hardSolved: hard,
-    totalEasy:   raw.data?.allQuestionsCount?.find((q: any) => q.difficulty === 'Easy')?.count   ?? 803,
-    totalMedium: raw.data?.allQuestionsCount?.find((q: any) => q.difficulty === 'Medium')?.count ?? 1685,
-    totalHard:   raw.data?.allQuestionsCount?.find((q: any) => q.difficulty === 'Hard')?.count   ?? 712,
-    acceptanceRate: totalSubs > 0 ? Math.round((total / totalSubs) * 10000) / 100 : 0,
-    streak: 0, totalContests: cr?.attendedContestsCount ?? 0,
-    globalRanking: cr?.globalRanking ?? 0,
-    tagDistribution: tagDist, languageStats: langStats, ratingHistory, contests,
+    handle, 
+    username: user.name ?? handle,
+    avatar: user.avatar ?? '', 
+    ranking: user.ranking ?? 0,
+    contestRating: contest.contestRating ? Math.round(contest.contestRating) : 0,
+    maxRating: ratingHistory.length ? Math.max(...ratingHistory.map((h: any) => h.rating)) : 0,
+    totalSolved: profile.totalSolved ?? 0, 
+    easySolved: profile.easySolved ?? 0, 
+    mediumSolved: profile.mediumSolved ?? 0, 
+    hardSolved: profile.hardSolved ?? 0,
+    totalEasy: profile.totalEasy ?? 803,
+    totalMedium: profile.totalMedium ?? 1685,
+    totalHard: profile.totalHard ?? 712,
+    acceptanceRate: profile.totalSubmissions > 0 ? Math.round((profile.totalSolved / profile.totalSubmissions) * 10000) / 100 : 0,
+    streak: 0, 
+    totalContests: contest.contestAttend ?? 0,
+    globalRanking: contest.contestGlobalRanking ?? 0,
+    tagDistribution: tagDist, 
+    languageStats: {}, 
+    ratingHistory, 
+    contests,
     weeklyStats: { solvedThisWeek: 0, activeDays: 0, avgPerDay: 0 },
   }
 }

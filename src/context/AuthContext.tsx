@@ -32,13 +32,19 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [profile, setProfile] = useState<Profile | null>(null)
   const [loading, setLoading] = useState(true)
 
-  const fetchProfile = useCallback(async (uid: string) => {
-    const { data } = await supabase
-      .from('profiles')
-      .select('*')
-      .eq('id', uid)
-      .single()
-    if (data) setProfile(data as Profile)
+  const fetchProfile = useCallback(async (uid: string, retries = 3) => {
+    for (let i = 0; i < retries; i++) {
+      const { data } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('id', uid)
+        .single()
+      if (data) {
+        setProfile(data as Profile)
+        return
+      }
+      await new Promise(resolve => setTimeout(resolve, 500))
+    }
   }, [])
 
   useEffect(() => {
@@ -51,6 +57,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       } else {
         setLoading(false)
       }
+    }).catch(err => {
+      console.error(err)
+      setLoading(false)
     })
 
     // Listen for auth changes
